@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token  %}
+    <table>
+        <tr>
+            <td>FoodType</td>
+            <td><select name="FoodType" id="">
+                <option value="">...Select...</option>
+                {% for i in FoodType %}
+                <option
+                {% if i.id == Category_data.FoodType_id %}
+                selected
+                {% endif %}
+                value="{{i.id}}">{{i.ft.FoodType_name}}</option>
+            {% endfor %}
+        </tr>
+           <tr> <td>Category</td>
+            <td><input type="text" name="Category"></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Add</button></td>
+        </tr>
+    </table>
+    </form>
+    <table>
+        <tr>
+            <td>#</td>
+            <td>FoodType</td>
+            <td>Category</td>
+            <td>Action</td>
+        </tr>
+        {% for i in Category %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.FoodType_data.FoodType_name}}</td>
+            <td>{{i.Category_data.Category_name}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

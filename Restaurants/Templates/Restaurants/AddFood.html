@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token  %}
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="Name" id=""></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="FoodPhoto" id=""></td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td><select name="" id="" disabled="disabled">
+
+                </select>
+            </td>
+            </tr>
+            <tr>
+                <td>Food Type</td>
+                <td><select name="FoodType" id="" disabled="disabled">
+
+                </select>
+            </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="number" name="Price" id=""></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="varchar" name="Description" id=""></td>
+            </tr>
+        </table>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

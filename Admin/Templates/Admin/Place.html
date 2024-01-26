@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token  %}
+    <table>
+        <tr>
+            <td>District</td>
+            <td><select name="district" id="">
+                <option value="">...Select...</option>
+                {% for i in district %}
+                <option
+                {% if i.id == place_data.district_id %}
+                selected
+                {% endif %}
+                value="{{i.id}}">{{i.dis.district_name}}</option>
+            {% endfor %}
+        </tr>
+           <tr> <td>Place</td>
+            <td><input type="text" name="Place"></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Add</button></td>
+        </tr>
+    </table>
+    </form>
+    <table>
+        <tr>
+            <td>#</td>
+            <td>District</td>
+            <td>Place</td>
+            <td>Action</td>
+        </tr>
+        {% for i in place %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.district_data.district_name}}</td>
+            <td>{{i.place_data.place_name}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
