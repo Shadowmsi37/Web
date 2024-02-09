@@ -80,6 +80,15 @@ def FoodType(request):
 def delFoodType(request,id):
     db.collection("tbl_FoodType").document(id).delete()
     return redirect("webadmin:FoodType") 
+
+def editFoodType(request,id):
+    ft=db.collection("tbl_FoodType").document(id).get().to_dict()
+    if request.method=="POST":
+        data={"FoodType_name":request.POST.get("FoodType")}
+        db.collection("tbl_FoodType").document(id).update(data)
+        return redirect("webadmin:FoodType")
+    else:
+        return render(request,"Admin/FoodType.html",{"ft_data":ft})
    
 def Category(request):
     ft=db.collection("tbl_FoodType").stream()

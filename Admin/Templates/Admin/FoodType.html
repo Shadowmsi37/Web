@@ -29,6 +29,7 @@
             <td>{{forloop.counter}}</td>
             <td>{{i.FoodType.FoodType_name}}</td>
             <td><a href="{% url 'webadmin:delFoodType' i.id %}">Delete</a></td>
+            <td><a href="{% url 'webadmin:editFoodType' i.id %}">Edit</a></td>
             <td></td>
         </tr>
         {% endfor %}

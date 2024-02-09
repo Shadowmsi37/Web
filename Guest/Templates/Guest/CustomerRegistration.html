@@ -31,14 +31,33 @@
         </tr>
         <tr>
             <td>District</td>
-            <td><select name="District"  disabled="disabled"> </select></td>
+            <td><select name="district" id="district">
+                <option value="">...Select...</option>
+                {% for i in district %}
+                <option value="{{i.id}}">{{i.dis.district_name}}</option>
+            {% endfor %}</td>
         </tr>
         <tr>
             <td>Place</td>
-            <td><select name="Place"  disabled="disabled"> </select></td>
+            <td><select name="place" id="place">
+                <option value="">...Select...</option></select></td>
         </tr>
         
     </table>
     <button type="submit">Register</button>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'webguest:AjaxPlace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#place").html(data);
+            },
+        });
+    });
+</script>
