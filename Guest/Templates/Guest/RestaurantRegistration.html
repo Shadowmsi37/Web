@@ -6,46 +6,70 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post"></form>
+    <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token  %}
     <table>
         <tr>
-            <td>Name</td>
+            <td>Restaurant Name</td>
             <td><input type="text" name="Name" id=""></td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><input type="email" name="Email" id=""></td>
+            <td><input type="Email" name="Email" id=""></td>
         </tr>
         <tr>
             <td>Contact</td>
-            <td><input type="number" name="Contact" id=""></td>
+            <td><input type="tel" name="Contact" id=""></td>
         </tr>
         <tr>
             <td>Password</td>
-            <td><input type="password" name="Password" id=""></td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td><input type="text" name="Address" id=""></td>
-        </tr>
-        <tr>
-            <td>District</td>
-            <td><select name="District"  disabled="disabled"> </select></td>
-        </tr>
-        <tr>
-            <td>Place</td>
-            <td><select name="Place"  disabled="disabled"> </select></td>
-        </tr>
-        <tr>
-            <td>Proof</td>
-            <td><select name="Proof"  disabled="disabled"> </select></td>
+            <td><input type="Password" name="Password" id=""></td>
         </tr>
         <tr>
             <td>Photo</td>
-            <td><select name="Proof"  disabled="disabled"> </select></td>
+            <td><input type="file" name="Photo" id=""></td>
+        </tr>
+        <tr>
+            <td>District</td>
+            <td><select name="district" id="district">
+                <option value="">...Select...</option>
+                {% for i in district %}
+                <option value="{{i.id}}">{{i.dis.district_name}}</option>
+            {% endfor %}</td>
+        </tr>
+        <tr>
+            <td>Place</td>
+            <td><select name="place" id="place">
+                <option value="">...Select...</option></select></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><textarea name="Address" id="" cols="30" rows="10"></textarea></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register"></td>
+            
         </tr>
     </table>
-    <button type="submit">Register</button>
+</form>
 </body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+</script>
+{% endif %}
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'webguest:AjaxPlace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#place").html(data);
+            },
+        });
+    });
+</script>

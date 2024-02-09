@@ -112,6 +112,10 @@ def Category(request):
     
 def delCategory(request,id):
     db.collection("tbl_Category").document(id).delete()
+    return redirect("webadmin:Category")
+
+def editCategory(request,id):
+    db.collection("tbl_Category").document(id).update()
     return redirect("webadmin:Category") 
    
 def Admin(request):

@@ -6,10 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post"></form>
+    <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token  %}
     <table>
-        <tr>
             <td>Email</td>
             <td><input type="email" name="Email" id=""></td>
         </tr>
@@ -17,7 +16,11 @@
             <td>Password</td>
             <td><input type="password" name="Password" id=""></td>
         </tr>
+        <tr>
+            <td><input type="submit" value="Register"></td>
+            
+        </tr>
     </table>
-    <button type="submit">Login In</button>
+</form>
 </body>
 </html>

@@ -42,6 +42,7 @@
             <td>{{i.FoodType_data.FoodType_name}}</td>
             <td>{{i.Category_data.Category_name}}</td>
             <td><a href="{% url 'webadmin:delCategory' i.Categoryid %}">Delete</a></td>
+            <td><a href="{% url 'webadmin:editCategory' i.Categoryid %}">Edit</a></td>
             <td></td>
         </tr>
         {% endfor %}
