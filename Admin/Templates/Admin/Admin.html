@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td>Contact</td>
-                <td><input type="number" name="Contact" id=""></td>
+                <td><input type="tel" name="Contact" id=""></td>
             </tr>
             <tr>
                 <td>Password</td>
@@ -28,5 +28,25 @@
         </table>
         <button type="submit">Save</button>
     </form>
+    <table>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Action</td>
+        </tr>
+        {% for i in Admin %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Admin.Admin_Name}}</td>
+            <td>{{i.Admin.Admin_Email}}</td>
+            <td>{{i.Admin.Admin_Contact}}</td>
+            <td><a href="{% url 'webadmin:delAdmin' i.id %}">Delete</a></td>
+            <td><a href="{% url 'webadmin:editAdmin' i.id %}">Edit</a></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

@@ -9,7 +9,7 @@ import pyrebase
 db = firestore.client()
 
 
-def District(request):
+def district(request):
     dis=db.collection("tbl_district").stream()
     dis_data=[]
     for i in dis:
@@ -21,6 +21,19 @@ def District(request):
         return redirect("webadmin:district")
     else:
         return render(request,"Admin/District.html",{"district":dis_data})
+    
+def deldistrict(request,id):
+    db.collection("tbl_district").document(id).delete()
+    return redirect("webadmin:district")   
+
+def editdistrict(request,id):
+    dis=db.collection("tbl_district").document(id).get().to_dict()
+    if request.method=="POST":
+        data={"district_name":request.POST.get("District")}
+        db.collection("tbl_district").document(id).update(data)
+        return redirect("webadmin:district")
+    else:
+        return render(request,"Admin/District.html",{"dis_data":dis}) 
    
 def Place(request):
     dis=db.collection("tbl_district").stream()
@@ -41,6 +54,13 @@ def Place(request):
         return redirect("webadmin:Place")
     else:
         return render(request,"Admin/Place.html",{"district":dis_data,"place":result})
+    
+def delPlace(request,id):
+    db.collection("tbl_place").document(id).delete()
+    return redirect("webadmin:Place") 
+
+def editPlace(request,id):
+    db.collection()
 
    
    
@@ -56,6 +76,10 @@ def FoodType(request):
       return redirect("webadmin:FoodType")
    else:
       return render(request,"Admin/FoodType.html",{"FoodType":ft_data})
+   
+def delFoodType(request,id):
+    db.collection("tbl_FoodType").document(id).delete()
+    return redirect("webadmin:FoodType") 
    
 def Category(request):
     ft=db.collection("tbl_FoodType").stream()
@@ -76,6 +100,10 @@ def Category(request):
         return redirect("webadmin:Category")
     else:
         return render(request,"Admin/Category.html",{"FoodType":ft_data,"Category":result})
+    
+def delCategory(request,id):
+    db.collection("tbl_Category").document(id).delete()
+    return redirect("webadmin:Category") 
    
 def Admin(request):
 
@@ -89,4 +117,17 @@ def Admin(request):
       return redirect("webadmin:Admin")
    else:
       return render(request,"Admin/Admin.html",{"Admin":a_data})
+   
+def delAdmin(request,id):
+    db.collection("tbl_Admin").document(id).delete()
+    return redirect("webadmin:Admin") 
+
+def editAdmin(request,id):
+    a=db.collection("tbl_Admin").document(id).get().to_dict()
+    if request.method=="POST":
+        data = {"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")}
+        db.collection("tbl_Admin").document(id).update(data)
+        return redirect("webadmin:Admin")
+    else:
+        return render(request,"Admin/Admin.html",{"Admin_data":a}) 
    

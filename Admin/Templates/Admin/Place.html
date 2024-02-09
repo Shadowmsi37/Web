@@ -22,7 +22,7 @@
             {% endfor %}
         </tr>
            <tr> <td>Place</td>
-            <td><input type="text" name="Place"></td>
+            <td><input type="text" name="Place" value="{{place_data.place_name}}"></td>
         </tr>
         <tr>
             <td><button type="submit">Add</button></td>
@@ -41,6 +41,8 @@
             <td>{{forloop.counter}}</td>
             <td>{{i.district_data.district_name}}</td>
             <td>{{i.place_data.place_name}}</td>
+            <td><a href="{% url 'webadmin:delPlace' i.placeid %}">Delete</a></td>
+            <td><a href="{% url 'webadmin:editPlace' i.placeid %}">Edit</a></td>
             <td></td>
         </tr>
         {% endfor %}

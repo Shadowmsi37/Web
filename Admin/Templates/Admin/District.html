@@ -11,7 +11,7 @@
         <table>
             <tr>
                 <td>District</td>
-                <td><input type="text" name="District" id=""></td>
+                <td><input type="text" name="District" id="" value="{{dis_data.district_name}}"></td>
             </tr>
             <tr>
                 <td><button type="submit">Add</button></td>
@@ -28,7 +28,8 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{i.dis.district_name}}</td>
-            <td></td>
+            <td><a href="{% url 'webadmin:deldistrict' i.id %}">Delete</a></td>
+            <td><a href="{% url 'webadmin:editdistrict' i.id %}">Edit</a></td>
         </tr>
         {% endfor %}
     </table>
