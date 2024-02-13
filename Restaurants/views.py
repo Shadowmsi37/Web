@@ -27,3 +27,6 @@ def EditProfile(request):
 
 def ChangePassword(request):
     return render(request,"Restaurants/ChangePassword.html")
+
+def Homepage(request):
+    return render(request,"Restaurants/Homepage.html")

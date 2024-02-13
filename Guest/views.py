@@ -56,7 +56,7 @@ def RestaurantRegistration(request):
             path="RestaurantPhoto/"+image.name
             st.child(path).put(image)
             rp_url=st.child(path).get_url(None)
-        db.collection("tbl_Restaurant").add({"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url})
+        db.collection("tbl_Restaurant").add({"Restaurant_id":Restaurant.uid,"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url})
         return render(request,"Guest/RestaurantRegistration.html")
     else:    
         return render(request,"Guest/RestaurantRegistration.html",{"district":dis_data})
@@ -80,11 +80,35 @@ def CustomerRegistration(request):
             path="CustomerPhoto/"+image.name
             st.child(path).put(image)
             cp_url=st.child(path).get_url(None)
-        db.collection("tbl_Customer").add({"Customer_Name":request.POST.get("Name"),"Customer_Email":request.POST.get("Email"),"Customer_Contact":request.POST.get("Contact"),"Customer_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Customer_Photo":cp_url})
+        db.collection("tbl_Customer").add({"Customer_id":Customer.uid,"Customer_Name":request.POST.get("Name"),"Customer_Email":request.POST.get("Email"),"Customer_Contact":request.POST.get("Contact"),"Customer_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Customer_Photo":cp_url})
         return render(request,"Guest/CustomerRegistration.html")
     else:    
         return render(request,"Guest/CustomerRegistration.html",{"district":dis_data})
 
 
 def Login(request):
-    return render(request,"Guest/Login.html")
+    Customerid = ""
+    Restaurantid =""
+    if request.method == "POST":
+        email = request.POST.get("Email")
+        password = request.POST.get("Password")
+        try:
+            data = authe.sign_in_with_email_and_password(email,password)
+        except:
+            return render(request,"Guest/Login.html",{"msg":"Error in Email Or Password"})
+        Customer=db.collection("tbl_Customer").where("Customer_id","==",data["localId"]).stream() 
+        for c in Customer:
+            Customerid=c.id   
+        Restaurant = db.collection("tbl_Restaurant").where("Restaurant_id", "==", data["localId"]).stream()
+        for r in Restaurant:
+            Restaurantid = r.id  
+        if Customerid:
+            request.session["cid"] = Customerid
+            return redirect("webcustomer:Homepage")  
+        elif Restaurantid:
+            request.session["rid"]=Restaurantid    
+            return redirect("webRestaurants:Homepage")
+        else:
+            return render(request,"Guest/Login.html",{"msg":"error"})    
+    else:
+       return render(request,"Guest/Login.html")            
