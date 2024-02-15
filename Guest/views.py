@@ -89,6 +89,7 @@ def CustomerRegistration(request):
 def Login(request):
     Customerid = ""
     Restaurantid =""
+    Adminid =""
     if request.method == "POST":
         email = request.POST.get("Email")
         password = request.POST.get("Password")
@@ -98,7 +99,10 @@ def Login(request):
             return render(request,"Guest/Login.html",{"msg":"Error in Email Or Password"})
         Customer=db.collection("tbl_Customer").where("Customer_id","==",data["localId"]).stream() 
         for c in Customer:
-            Customerid=c.id   
+            Customerid=c.id
+        Admin=db.collection("tbl_Admin").where("Admin_id","==",data["localId"]).stream() 
+        for a in Admin:
+            Adminid=a.id   
         Restaurant = db.collection("tbl_Restaurant").where("Restaurant_id", "==", data["localId"]).stream()
         for r in Restaurant:
             Restaurantid = r.id  
@@ -108,6 +112,9 @@ def Login(request):
         elif Restaurantid:
             request.session["rid"]=Restaurantid    
             return redirect("webRestaurants:Homepage")
+        elif Adminid:
+            request.session["aid"]=Adminid    
+            return redirect("webadmin:Homepage")
         else:
             return render(request,"Guest/Login.html",{"msg":"error"})    
     else:

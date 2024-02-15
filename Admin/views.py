@@ -63,7 +63,6 @@ def editPlace(request,id):
     db.collection()
 
    
-   
 def FoodType(request):
 
    ft = db.collection("tbl_FoodType").stream()
@@ -117,20 +116,23 @@ def delCategory(request,id):
 def editCategory(request,id):
     db.collection("tbl_Category").document(id).update()
     return redirect("webadmin:Category") 
-   
-def Admin(request):
 
-   a = db.collection("tbl_Admin").stream()
-   a_data = []
-   for i in a:
-      a_data.append({"Admin":i.to_dict(),"id":i.id})
-   if request.method == "POST":
-      data = {"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")}
-      db.collection("tbl_Admin").add(data)
-      return redirect("webadmin:Admin")
-   else:
-      return render(request,"Admin/Admin.html",{"Admin":a_data})
-   
+def Admin(request):
+    
+    if request.method=="POST":
+        email = request.POST.get("Email")
+        password = request.POST.get("Password")
+        try:
+            Admin = firebase_admin.auth.create_user(email=email,password=password)
+        except (firebase_admin._auth_utils.EmailAlreadyExistsError,ValueError) as error:
+            return render(request,"Admin/Admin.html",{"msg":error})
+      
+        db.collection("tbl_Admin").add({"Admin_id":Admin.uid,"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")})
+        return render(request,"Admin/Admin.html")
+    else:    
+        return render(request,"Admin/Admin.html")
+
+
 def delAdmin(request,id):
     db.collection("tbl_Admin").document(id).delete()
     return redirect("webadmin:Admin") 
@@ -143,4 +145,8 @@ def editAdmin(request,id):
         return redirect("webadmin:Admin")
     else:
         return render(request,"Admin/Admin.html",{"Admin_data":a}) 
+    
+def Homepage(request):
+    return render(request,"Admin/Homepage.html") 
+
    

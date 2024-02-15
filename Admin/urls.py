@@ -16,6 +16,8 @@ urlpatterns=[
         path('editFoodType/<str:id>',views.editFoodType,name="editFoodType"),
         path('Category/',views.Category,name="Category"),
         path('delCategory/<str:id>',views.delCategory,name="delCategory"),
-        path('editCategory/<str:id>',views.editCategory,name="editCategory")        
+        path('editCategory/<str:id>',views.editCategory,name="editCategory"),  
+        path('Homepage/',views.Homepage,name="Homepage"),
+   
 
 ]

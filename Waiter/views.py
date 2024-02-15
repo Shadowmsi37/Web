@@ -15,3 +15,6 @@ def EditProfile(request):
 
 def ChangePassword(request):
     return render(request,"Waiter/ChangePassword.html")
+
+def Homepage(request):
+    return render(request,"Waiter/Homepage.html")
