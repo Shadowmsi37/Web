@@ -19,21 +19,20 @@
             </tr>
             <tr>
                 <td>Category</td>
-                <td><select name="" id="" disabled="disabled">
-
-                </select>
-            </td>
+                <td><select name="Category" id="Category">
+                    <option value="">...Select...</option>
+                    {% for i in Category %}
+                    <option value="{{i.id}}">{{i.ft.Category_name}}</option>
+                {% endfor %}</td>
             </tr>
             <tr>
-                <td>Food Type</td>
-                <td><select name="FoodType" id="" disabled="disabled">
-
-                </select>
-            </td>
+                <td>FoodType</td>
+                <td><select name="Foodtype" id="FoodType">
+                    <option value="">...Select...</option></select></td>
             </tr>
             <tr>
                 <td>Price</td>
-                <td><input type="number" name="Price" id=""></td>
+                <td><input type="varchar" name="Price" id=""></td>
             </tr>
             <tr>
                 <td>Description</td>
@@ -43,4 +42,24 @@
         <button type="submit">Add</button>
     </form>
 </body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+</script>
+{% endif %}
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#Category").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'webRestaurants:AjaxCategory' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#FoodtType").html(data);
+            },
+        });
+    });
+</script>
 </html>

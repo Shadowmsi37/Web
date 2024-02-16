@@ -8,30 +8,40 @@
 <body>
     <form action="" method="post">
         {% csrf_token  %}
-        <table>
-            <tr>
-                <td>FoodType</td>
-                <td><input type="text" name="FoodType" ></td>
-            </tr>
-            <tr>
-                <td><button type="submit">Add</button></td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <td>Category</td>
+            <td><select name="Category" id="">
+                <option value="">...Select...</option>
+                {% for i in Category %}
+                <option
+                {% if i.id == Category_data.Category_id %}
+                selected
+                {% endif %}
+                value="{{i.id}}">{{i.ft.Category_name}}</option>
+            {% endfor %}
+        </tr>
+           <tr> <td>FoodType</td>
+            <td><input type="text" name="FoodType"></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Add</button></td>
+        </tr>
+    </table>
     </form>
     <table>
         <tr>
             <td>#</td>
+            <td>Category</td>
             <td>FoodType</td>
             <td>Action</td>
         </tr>
         {% for i in FoodType %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.FoodType.FoodType_name}}</td>
-            <td><a href="{% url 'webadmin:delFoodType' i.id %}">Delete</a></td>
-            <td><a href="{% url 'webadmin:editFoodType' i.id %}">Edit</a></td>
-            <td></td>
-        </tr>
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.Category_data.Category_name}}</td>
+        <td>{{i.FoodType_data.FoodType_name}}</td>
+      </tr>
         {% endfor %}
     </table>
 </body>

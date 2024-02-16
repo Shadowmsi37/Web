@@ -63,18 +63,18 @@ def editPlace(request,id):
     db.collection()
 
    
-def FoodType(request):
+def Category(request):
 
-   ft = db.collection("tbl_FoodType").stream()
+   ft = db.collection("tbl_Category").stream()
    ft_data = []
    for i in ft:
-      ft_data.append({"FoodType":i.to_dict(),"id":i.id})
+      ft_data.append({"Category":i.to_dict(),"id":i.id})
    if request.method == "POST":
-      data = {"FoodType_name":request.POST.get("FoodType")}
-      db.collection("tbl_FoodType").add(data)
-      return redirect("webadmin:FoodType")
+      data = {"Category_name":request.POST.get("Category")}
+      db.collection("tbl_Category").add(data)
+      return redirect("webadmin:Category")
    else:
-      return render(request,"Admin/FoodType.html",{"FoodType":ft_data})
+      return render(request,"Admin/Category.html",{"Category":ft_data})
    
 def delFoodType(request,id):
     db.collection("tbl_FoodType").document(id).delete()
@@ -89,33 +89,37 @@ def editFoodType(request,id):
     else:
         return render(request,"Admin/FoodType.html",{"ft_data":ft})
    
-def Category(request):
-    ft=db.collection("tbl_FoodType").stream()
+def FoodType(request):
+    ft=db.collection("tbl_Category").stream()
     ft_data=[]
     for i in ft:
         data=i.to_dict()
         ft_data.append({"ft":data,"id":i.id})
     result=[]
-    Category_data=db.collection("tbl_Category").stream()
-    for Category in Category_data:
-        Category_dict=Category.to_dict()
-        FoodType=db.collection("tbl_FoodType").document(Category_dict["FoodType_id"]).get()
+    FoodType_data=db.collection("tbl_FoodType").stream()
+    for FoodType in FoodType_data:
         FoodType_dict=FoodType.to_dict()
-        result.append({'FoodType_data':FoodType_dict,'Category_data':Category_dict,'Categoryid':Category.id})
+        Category=db.collection("tbl_Category").document(FoodType_dict["Category_id"]).get().to_dict()
+        result.append({'FoodType_data':FoodType_dict,'Category_data':Category,'FoodTypeid':FoodType.id})
     if request.method=="POST":
-        data={"Category_name":request.POST.get("Category"),"FoodType_id":request.POST.get("FoodType")}
-        db.collection("tbl_Category").add(data)
-        return redirect("webadmin:Category")
+        data={"Category_id":request.POST.get("Category"),"FoodType_name":request.POST.get("FoodType")}
+        db.collection("tbl_FoodType").add(data)
+        return redirect("webadmin:FoodType")
     else:
-        return render(request,"Admin/Category.html",{"FoodType":ft_data,"Category":result})
+        return render(request,"Admin/FoodType.html",{"Category":ft_data,"FoodType":result})
     
 def delCategory(request,id):
     db.collection("tbl_Category").document(id).delete()
     return redirect("webadmin:Category")
 
 def editCategory(request,id):
-    db.collection("tbl_Category").document(id).update()
-    return redirect("webadmin:Category") 
+    cat = db.collection("tbl_Category").document(id).get().to_dict()
+    if request.method == "POST":
+        db.collection("tbl_Category").document(id).update({"Category_name":request.POST.get("Category")})
+        return redirect("webadmin:Category")
+    else:
+        return render(request,"Admin/Category.html",{"cat":cat})
+     
 
 def Admin(request):
     
