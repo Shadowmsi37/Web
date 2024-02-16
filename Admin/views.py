@@ -76,19 +76,19 @@ def Category(request):
    else:
       return render(request,"Admin/Category.html",{"Category":ft_data})
    
-def delFoodType(request,id):
-    db.collection("tbl_FoodType").document(id).delete()
-    return redirect("webadmin:FoodType") 
+def delCategory(request,id):
+    db.collection("tbl_Category").document(id).delete()
+    return redirect("webadmin:Category")
 
-def editFoodType(request,id):
-    ft=db.collection("tbl_FoodType").document(id).get().to_dict()
-    if request.method=="POST":
-        data={"FoodType_name":request.POST.get("FoodType")}
-        db.collection("tbl_FoodType").document(id).update(data)
-        return redirect("webadmin:FoodType")
+def editCategory(request,id):
+    cat = db.collection("tbl_Category").document(id).get().to_dict()
+    if request.method == "POST":
+        db.collection("tbl_Category").document(id).update({"Category_name":request.POST.get("Category")})
+        return redirect("webadmin:Category")
     else:
-        return render(request,"Admin/FoodType.html",{"ft_data":ft})
-   
+        return render(request,"Admin/Category.html",{"cat":cat})
+
+      
 def FoodType(request):
     ft=db.collection("tbl_Category").stream()
     ft_data=[]
@@ -108,18 +108,20 @@ def FoodType(request):
     else:
         return render(request,"Admin/FoodType.html",{"Category":ft_data,"FoodType":result})
     
-def delCategory(request,id):
-    db.collection("tbl_Category").document(id).delete()
-    return redirect("webadmin:Category")
+def delFoodType(request,id):
+    db.collection("tbl_FoodType").document(id).delete()
+    return redirect("webadmin:FoodType") 
 
-def editCategory(request,id):
-    cat = db.collection("tbl_Category").document(id).get().to_dict()
-    if request.method == "POST":
-        db.collection("tbl_Category").document(id).update({"Category_name":request.POST.get("Category")})
-        return redirect("webadmin:Category")
+def editFoodType(request,id):
+    ft=db.collection("tbl_FoodType").document(id).get().to_dict()
+    if request.method=="POST":
+        data={"FoodType_name":request.POST.get("FoodType")}
+        db.collection("tbl_FoodType").document(id).update(data)
+        return redirect("webadmin:FoodType")
     else:
-        return render(request,"Admin/Category.html",{"cat":cat})
-     
+        return render(request,"Admin/FoodType.html",{"ft_data":ft})
+
+         
 
 def Admin(request):
     

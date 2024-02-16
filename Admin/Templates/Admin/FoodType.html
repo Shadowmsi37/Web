@@ -22,7 +22,7 @@
             {% endfor %}
         </tr>
            <tr> <td>FoodType</td>
-            <td><input type="text" name="FoodType"></td>
+            <td><input type="text" name="FoodType" value=""></td>
         </tr>
         <tr>
             <td><button type="submit">Add</button></td>
@@ -41,6 +41,8 @@
         <td>{{forloop.counter}}</td>
         <td>{{i.Category_data.Category_name}}</td>
         <td>{{i.FoodType_data.FoodType_name}}</td>
+        <td><a href="{% url 'webadmin:delFoodType' i.FoodTypeid %}">Delete</a></td>
+        <td><a href="{% url 'webadmin:editFoodType' i.FoodTypeid %}">Edit</a></td>  
       </tr>
         {% endfor %}
     </table>

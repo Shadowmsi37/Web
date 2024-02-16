@@ -22,11 +22,59 @@
                 <td><input type="password" name="Password" id=""></td>
             </tr>
             <tr>
+                <td>Contact</td>
+                <td><input type="tel" name="Contact" id=""></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="Photo" id=""></td>
+            </tr>
+            
+            <tr>
                 <td>Proof</td>
                 <td><input type="file" name="Proof" id=""></td>
             </tr>
+            <tr>
+                <td>District</td>
+                <td><select name="district" id="district">
+                    <option value="">...Select...</option>
+                    {% for i in district %}
+                    <option value="{{i.id}}">{{i.dis.district_name}}</option>
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><select name="place" id="place">
+                    <option value="">...Select...</option></select></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><textarea name="Address" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+
         </table>
-        <button type="submit">Add</button>
+        <button type="submit">Register</button>
     </form>
 </body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+</script>
+{% endif %}
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'webRestaurants:AjaxPlace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#place").html(data);
+            },
+        });
+    });
+</script>
+</html>
 </html>
