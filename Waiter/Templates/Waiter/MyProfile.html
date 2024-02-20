@@ -15,17 +15,26 @@
         </tr>
         <tr>
             <td>Name</td>
-            <td><input type="text" name="Name" id=""></td>
+            <td>{{Waiter.Waiter_Name}}</td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><input type="email" name="Email" id=""></td>
+            <td>{{Waiter.Waiter_Email}}</td>
         </tr>
         <tr>
             <td>Address</td>
-            <td><textarea name="Address" id="" cols="30" rows="10"></textarea></td>
+            <td>{{Waiter.Waiter_Address}}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{Waiter.Waiter_Contact}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><a href="{% url 'webwaiter:EditProfile' %}">Edit Profile</a>
+                <a href="{% url 'webwaiter:ChangePassword' %}">Change Password</a></td>
+
         </tr>
     </table>
-    <button type="submit">Submit</button>
+
 </body>
 </html>

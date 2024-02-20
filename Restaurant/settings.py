@@ -132,3 +132,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 cred = credentials.Certificate('DB/restaurants-reservation-system-firebase-adminsdk-r0r7n-6bbccc71e8.json')
 app = firebase_admin.initialize_app(cred)
+
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'restaurant.serve37@gmail.com'
+EMAIL_HOST_PASSWORD = 'npzebrpqinyjkmxo '

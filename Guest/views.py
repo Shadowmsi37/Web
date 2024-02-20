@@ -90,6 +90,7 @@ def Login(request):
     Customerid = ""
     Restaurantid =""
     Adminid =""
+    Waiterid=""
     if request.method == "POST":
         email = request.POST.get("Email")
         password = request.POST.get("Password")
@@ -100,6 +101,9 @@ def Login(request):
         Customer=db.collection("tbl_Customer").where("Customer_id","==",data["localId"]).stream() 
         for c in Customer:
             Customerid=c.id
+        Waiter=db.collection("tbl_Waiter").where("Waiter_id","==",data["localId"]).stream() 
+        for w in Waiter:
+            Waiterid=w.id
         Admin=db.collection("tbl_Admin").where("Admin_id","==",data["localId"]).stream() 
         for a in Admin:
             Adminid=a.id   
@@ -112,6 +116,9 @@ def Login(request):
         elif Restaurantid:
             request.session["rid"]=Restaurantid    
             return redirect("webRestaurants:Homepage")
+        elif Waiterid:
+            request.session["wid"]=Waiterid    
+            return redirect("webwaiter:Homepage")
         elif Adminid:
             request.session["aid"]=Adminid    
             return redirect("webadmin:Homepage")

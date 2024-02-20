@@ -6,7 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <a href="{% url 'webwaiter:MyProfile' %}">MyProfile</a>
 </body>
-
+{% if msg %}
+<script>
+    alert("The Password Reset Link Is sented to {{msg}}")
+    window.location = "{% url 'webwaiter:Homepage' %}"
+</script>
+{% endif %}
 </html>
