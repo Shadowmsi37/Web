@@ -28,7 +28,16 @@ st = firebase.storage()
 db = firestore.client()
 
 def AddTable(request):
-    return render(request,"Restaurants/AddTable.html")
+    if request.method=="POST":
+        image=request.FILES.get("TablePhoto")
+        if image:
+            path="TablePhoto/"+image.name
+            st.child(path).put(image)
+            tp_url=st.child(path).get_url(None)
+        db.collection("tbl_Table").add({"Restaurant_id":request.session["rid"],"Table_No":request.POST.get("Table_No"),"Table_Capacity":request.POST.get("Table_Capacity"),"Table_Photo":tp_url})
+        return render(request,"Restaurants/AddTable.html")
+    else:    
+        return render(request,"Restaurants/AddTable.html")
 
 def AddWaiter(request):
     dis=db.collection("tbl_district").stream()

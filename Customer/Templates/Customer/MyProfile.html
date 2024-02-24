@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post"></form>
+    <form action="" method="post">
     {% csrf_token  %}
     <table>
         <tr>
@@ -30,11 +30,12 @@
             <td>{{Customer.Customer_Contact}}</td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><a href="{% url 'webcustomer:EditProfile' %}">Edit Profile</a>
-                <a href="{% url 'webcustomer:ChangePassword' %}">Change Password</a></td>
-
+            <td colspan="2" align="center">
+                <a href="{% url 'webcustomer:EditProfile' %}">Edit Profile</a>
+                <a href="{% url 'webcustomer:ChangePassword' %}">Change Password</a>
+            </td>
         </tr>
     </table>
-
+    </form>
 </body>
 </html>

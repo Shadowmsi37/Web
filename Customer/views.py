@@ -36,5 +36,26 @@ def ChangePassword(request):
     )
     return render(request,"Customer/Homepage.html",{"msg":email})
 
+def ViewTable(request):
+    t=db.collection("tbl_Table").stream()
+    t_data=[]
+    for i in t:
+        data=i.to_dict()
+        t_data.append({"t":data,"id":i.id})
+    return render(request,"Customer/ViewTable.html",{"Table":t_data})
+
 def Homepage(request):
     return render(request,"Customer/Homepage.html")
+
+def ViewRestaurant(request):
+    vr=db.collection("tbl_Restaurant").stream()
+    vr_data=[]
+    for i in vr:
+        data=i.to_dict()
+        vr_data.append({"vr":data,"id":i.id})
+    return render(request,"Customer/ViewRestaurant.html",{"Restaurant":vr_data})
+
+
+def Booking(request):
+    return render(request,"Customer/Booking.html")
+

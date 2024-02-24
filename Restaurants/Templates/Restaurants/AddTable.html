@@ -6,9 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token  %}
         <table>
+            <tr>
+                <td>Table No</td>
+                <td><input type="number" name="Table_No" id=""></td>
+            </tr>
             <tr>
                 <td>Table</td>
                 <td><input type="file" name="TablePhoto" id=""></td>
