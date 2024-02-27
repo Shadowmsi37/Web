@@ -26,7 +26,7 @@
             <td>{{i.vr.Restaurant_Email}}</td>
             <td>{{i.vr.Restaurant_Contact}}</td>
             <td colspan="2" align="center">
-                <a href="{% url 'webcustomer:ViewTable' %}">View More</a>
+                <a href="{% url 'webcustomer:ViewTable' i.id %}">View More</a>
             </td>
         </tr>
         {% endfor %}

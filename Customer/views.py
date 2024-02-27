@@ -36,8 +36,8 @@ def ChangePassword(request):
     )
     return render(request,"Customer/Homepage.html",{"msg":email})
 
-def ViewTable(request):
-    t=db.collection("tbl_Table").stream()
+def ViewTable(request,id):
+    t=db.collection("tbl_Table").where("Restaurant_id", "==", id).stream()
     t_data=[]
     for i in t:
         data=i.to_dict()
