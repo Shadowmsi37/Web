@@ -8,7 +8,7 @@ urlpatterns=[
         path('Homepage/',views.Homepage,name="Homepage"),
         path('ViewTable/<str:id>',views.ViewTable,name="ViewTable"),
         path('ViewRestaurant/',views.ViewRestaurant,name="ViewRestaurant"),
-        path('Booking/',views.Booking,name="Booking"),
+        path('Booking/<str:id>',views.Booking,name="Booking"),
 
 
 ]

@@ -56,6 +56,16 @@ def ViewRestaurant(request):
     return render(request,"Customer/ViewRestaurant.html",{"Restaurant":vr_data})
 
 
-def Booking(request):
-    return render(request,"Customer/Booking.html")
+def Booking(request,id):
+    b=db.collection("tbl_Booking").where("Restaurant_id", "==", id).stream()
+    b_data=[]
+    for i in b:
+        data=i.to_dict()
+        b_data.append({"b":data,"id":i.id})
+    if request.method=="POST":
+        data={"Date":request.POST.get("Date"),"Time":request.POST.get("Time")}
+        db.collection("tbl_Booking").add(data)
+        return render(request,"Customer/Booking.html")
+    else:
+        return render(request,"Customer/Booking.html")
 

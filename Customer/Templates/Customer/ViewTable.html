@@ -21,7 +21,7 @@
             <td><img src="{{i.t.Table_Photo}}"  width="100" height="100"></td>
             <td>{{i.t.Table_No}}</td>
             <td>{{i.t.Table_Capacity}}</td>
-            <td><a href="{% url 'webcustomer:Booking' %}">Booking</a></td>
+            <td><a href="{% url 'webcustomer:Booking' i.id %}">Booking</a></td>
             
         </tr>
         {% endfor %}
