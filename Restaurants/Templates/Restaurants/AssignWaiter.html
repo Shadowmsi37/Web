@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token  %}
+        <table>
+            <tr>
+                <td>Waiter Name</td>
+                <td><select name="Waiter" id="Waiter">
+                    <option value="">...Select...</option>
+                    {% for i in Waiter %}
+                    <option value="{{i.id}}">{{i.w.Waiter_Name}}</option>
+                {% endfor %}</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Assign Waiter"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

@@ -64,7 +64,7 @@ def AddWaiter(request):
             path="WaiterProof/"+image.name
             st.child(path).put(image)
             wpr_url=st.child(path).get_url(None)
-        db.collection("tbl_Waiter").add({"Waiter_id":Waiter.uid,"Waiter_Name":request.POST.get("Name"),"Waiter_Email":request.POST.get("Email"),"Waiter_Contact":request.POST.get("Contact"),"Waiter_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Waiter_Proof":wpr_url,"Waiter_Photo":wp_url})
+        db.collection("tbl_Waiter").add({"Restaurant_id":request.session["rid"],"Waiter_id":Waiter.uid,"Waiter_Name":request.POST.get("Name"),"Waiter_Email":request.POST.get("Email"),"Waiter_Contact":request.POST.get("Contact"),"Waiter_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Waiter_Proof":wpr_url,"Waiter_Photo":wp_url})
         return render(request,"Restaurants/AddWaiter.html")
     else:    
         return render(request,"Restaurants/AddWaiter.html",{"district":dis_data})
@@ -155,20 +155,34 @@ def ViewBooking(request):
             vb_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
             return render(request,"Restaurants/ViewBooking.html",{"view":vb_data})
         else:
-            return render(request,"Restaurants/Homepage.html")
+            return render(request,"Restaurants/ViewBooking.html")
 
 
 def Accepted(request,id):
-    req=db.collection("tbl_Booking").document(id).update({"Booking_Status":1})    
-    Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
-    email = Customer["Customer_Email"]
-    send_mail(
-    'Booking Table', 
-    "\rHello \r\n Your Table has been Booked Successfully",#body
-    settings.EMAIL_HOST_USER,
-    [email],
-    )
-    return render(request,"Restaurants/ViewBooking.html",{"msg":email})    
+    req=db.collection("tbl_Booking").stream()
+    w=db.collection("tbl_Waiter").where("Restaurant_id", "==", request.session["rid"]).stream()
+    w_data=[]
+    for i in w:
+        data=i.to_dict()
+        w_data.append({"w":data,"id":i.id})
+    if request.method=="POST":
+        waiterdata = db.collection("tbl_Waiter").document(request.POST.get("Waiter")).get().to_dict()
+        waiter_name = waiterdata["Waiter_Name"]
+        data={"Waiter_id":request.POST.get("Waiter"),"Booking_Status":1}
+        db.collection("tbl_Booking").document(id).update(data)
+      
+        Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
+        email = Customer["Customer_Email"]
+        send_mail(
+        'Booking Table', 
+        "\rHello \r\n Your Table has been Booked Successfully \r\n Your Waiter is " + waiter_name,#body
+        settings.EMAIL_HOST_USER,
+        [email],
+        )
+        
+        return render(request,"Restaurants/Homepage.html",{"msg":email})   
+    else:
+         return render(request,"Restaurants/AssignWaiter.html",{"Waiter":w_data})
     
 
 
