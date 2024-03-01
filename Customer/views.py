@@ -63,9 +63,9 @@ def Booking(request,id):
         data=i.to_dict()
         b_data.append({"b":data,"id":i.id})
     if request.method=="POST":
-        data={"Date":request.POST.get("Date"),"Time":request.POST.get("Time")}
+        data={"Table_id":id,"Customer_id":request.session["cid"],"Date":request.POST.get("Date"),"Time":request.POST.get("Time"),"Booking_Status":0}
         db.collection("tbl_Booking").add(data)
-        return render(request,"Customer/Booking.html")
+        return render(request,"Customer/Homepage.html")
     else:
         return render(request,"Customer/Booking.html")
 

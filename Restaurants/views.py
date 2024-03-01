@@ -144,5 +144,46 @@ def ChangePassword(request):
     )
     return render(request,"Restaurants/Homepage.html",{"msg":email})
 
+def ViewBooking(request):
+        vb = db.collection("tbl_Booking").where("Booking_Status","==",0).stream() 
+        vb_data=[]
+        for i in vb:
+            data=i.to_dict()
+            Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
+            Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
+            Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
+            vb_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
+            return render(request,"Restaurants/ViewBooking.html",{"view":vb_data})
+        else:
+            return render(request,"Restaurants/Homepage.html")
+
+
+def Accepted(request,id):
+    req=db.collection("tbl_Booking").document(id).update({"Booking_Status":1})    
+    Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
+    email = Customer["Customer_Email"]
+    send_mail(
+    'Booking Table', 
+    "\rHello \r\n Your Table has been Booked Successfully",#body
+    settings.EMAIL_HOST_USER,
+    [email],
+    )
+    return render(request,"Restaurants/ViewBooking.html",{"msg":email})    
+    
+
+
+def Rejected(request,id):
+    req=db.collection("tbl_Booking").document(id).update({"Booking_Status":2})
+    Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
+    email = Customer["Customer_Email"]
+    send_mail(
+    'Table Booking', 
+    "\rHello \r\n Your Table Booking has Rejected By Our Restaurant  ",#body
+    settings.EMAIL_HOST_USER,
+    [email],
+    )
+    return render(request,"Restaurants/ViewBooking.html",{"msg":email})    
+
+
 def Homepage(request):
     return render(request,"Restaurants/Homepage.html")
