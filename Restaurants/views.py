@@ -125,7 +125,7 @@ def MyProfile(request):
 def EditProfile(request):
     Restaurant=db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
     if request.method=="POST":
-        data={"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact")}
+        data={"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address")}
         db.collection("tbl_Restaurant").document(request.session["rid"]).update(data)
         return redirect("webRestaurants:MyProfile")
     else:

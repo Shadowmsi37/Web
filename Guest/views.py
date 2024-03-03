@@ -56,7 +56,7 @@ def RestaurantRegistration(request):
             path="RestaurantPhoto/"+image.name
             st.child(path).put(image)
             rp_url=st.child(path).get_url(None)
-        db.collection("tbl_Restaurant").add({"Restaurant_id":Restaurant.uid,"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url})
+        db.collection("tbl_Restaurant").add({"Restaurant_id":Restaurant.uid,"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url,"Restaurant_Status":0})
         return render(request,"Guest/RestaurantRegistration.html")
     else:    
         return render(request,"Guest/RestaurantRegistration.html",{"district":dis_data})
@@ -107,7 +107,7 @@ def Login(request):
         Admin=db.collection("tbl_Admin").where("Admin_id","==",data["localId"]).stream() 
         for a in Admin:
             Adminid=a.id   
-        Restaurant = db.collection("tbl_Restaurant").where("Restaurant_id", "==", data["localId"]).stream()
+        Restaurant = db.collection("tbl_Restaurant").where("Restaurant_id", "==",data["localId"],).stream()
         for r in Restaurant:
             Restaurantid = r.id  
         if Customerid:

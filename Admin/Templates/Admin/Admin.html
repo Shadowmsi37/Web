@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
-        {% csrf_token  %}
+    <form action="" method="POST">
+       {% csrf_token %}
         <table>
             <tr>
                 <td>Name</td>
@@ -28,25 +28,5 @@
         </table>
         <button type="submit">Save</button>
     </form>
-    <table>
-        <tr>
-            <td>#</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Contact</td>
-            <td>Action</td>
-        </tr>
-        {% for i in Admin %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.Admin.Admin_Name}}</td>
-            <td>{{i.Admin.Admin_Email}}</td>
-            <td>{{i.Admin.Admin_Contact}}</td>
-            <td><a href="{% url 'webadmin:delAdmin' i.id %}">Delete</a></td>
-            <td><a href="{% url 'webadmin:editAdmin' i.id %}">Edit</a></td>
-            <td></td>
-        </tr>
-        {% endfor %}
-    </table>
 </body>
 </html>

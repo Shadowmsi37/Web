@@ -10,30 +10,21 @@
     {% csrf_token  %}
     <table>
         <tr>
-            <td>Photo</td>
-            <td><img></td>
-        </tr>
-        <tr>
             <td>Name</td>
-            <td>{{Restaurant.Restaurant_Name}}</td>
-        </tr>
-        <tr>
             <td>Email</td>
-            <td>{{Restaurant.Restaurant_Email}}</td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td>{{Restaurant.Restaurant_Address}}</td>
-        </tr>
-        <tr>
             <td>Contact</td>
-            <td>{{Restaurant.Restaurant_Contact}}</td>
+            <td>Address</td>
+            <td>Photo</td>
+            <td>Action</td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><a href="{% url 'webRestaurants:EditProfile' %}">Edit Profile</a>
-                <a href="{% url 'webRestaurants:ChangePassword' %}">Change Password</a></td>
-
-        </tr>
+            <td>{{Restaurant.Restaurant_Name}}</td>
+            <td>{{Restaurant.Restaurant_Email}}</td>
+            <td>{{Restaurant.Restaurant_Contact}}</td>
+            <td><img src="{{Restaurant.Restaurant_Photo}}"  width="100" height="100"></td>
+            <td>{{Restaurant.Restaurant_Address}}</td>
+            <td><a href="{% url 'webRestaurants:EditProfile' %}">Edit Profile</a>
+            <a href="{% url 'webRestaurants:ChangePassword' %}">Change Password</a></td>
     </table>
 </form>
 </body>

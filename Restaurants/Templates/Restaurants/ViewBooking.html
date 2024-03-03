@@ -20,7 +20,6 @@
                 <td>Booked Date</td>
                 <td>Booked Time</td>
                 <td>Action</td>
-                <td>Action</td>
             </tr>
             {% for i in view %}
             <tr>
@@ -33,8 +32,8 @@
                 <td>{{i.Table.Table_Capacity}}</td>
                 <td>{{i.view.Date}}</td>
                 <td>{{i.view.Time}}</td>
-                <td><a href="{% url 'webRestaurants:Accepted' i.id %}">Accepted</a></td>
-                <td><a href="{% url 'webRestaurants:Rejected' i.id %}">Rejected</a></td>
+                <td><a href="{% url 'webRestaurants:Accepted' i.id %}">Accepted</a>
+                    <a href="{% url 'webRestaurants:Rejected' i.id %}">Rejected</a></td>
             </tr>
             {% endfor %}
         </table>
