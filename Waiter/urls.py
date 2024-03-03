@@ -6,6 +6,9 @@ urlpatterns=[
         path('EditProfile/',views.EditProfile,name="EditProfile"),
         path('ChangePassword/',views.ChangePassword,name="ChangePassword"),
         path('Homepage/',views.Homepage,name="Homepage"),
+        path('ViewCustomers/',views.ViewCustomers,name="ViewCustomers"),
+        path('Accepted/<str:id>',views.Accepted,name="Accepted"),
+        path('Rejected/<str:id>',views.Rejected,name="Rejected"),
 
 
 ]

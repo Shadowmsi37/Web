@@ -37,5 +37,48 @@ def ChangePassword(request):
     )
     return render(request,"Waiter/Homepage.html",{"msg":email})
 
+
+def ViewCustomers(request):
+    vc = db.collection("tbl_Booking").where("Waiter_Status","==",0).stream()
+    vc_data=[]
+    for i in vc:
+            data=i.to_dict()
+            Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
+            Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
+            Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
+            vc_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
+            return render(request,"Waiter/ViewCustomers.html",{"view":vc_data})
+    else:
+            return render(request,"Waiter/ViewCustomers.html")
+    
+def Accepted(request,id):
+    req=db.collection("tbl_Booking").stream()
+    w=db.collection("tbl_Waiter").where("Restaurant_id", "==", request.session["rid"]).stream()
+    w_data=[]
+    for i in w:
+        data=i.to_dict()
+        w_data.append({"w":data,"id":i.id})
+    if request.method=="POST":
+        data={"Waiter_id":request.POST.get("Waiter"),"Waiter_Status":1}
+        db.collection("tbl_Booking").document(id).update(data)
+        return render(request,"Waiter/Homepage.html")   
+    else:
+         return render(request,"Waiter/Homepage.html",{"Waiter":w_data})
+    
+
+
+def Rejected(request,id):
+    req=db.collection("tbl_Booking").document(id).update({"Waiter_Status":0})
+    Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
+    email = Customer["Customer_Email"]
+    send_mail(
+    'Reservation Status', 
+    "\rHello \r\n Our Waiter is not feel good today \r\n we will assign another waiter shortly",#body
+    settings.EMAIL_HOST_USER,
+    [email],
+    )
+    return render(request,"Waiter/Homepage.html",{"msg":email})    
+
+
 def Homepage(request):
     return render(request,"Waiter/Homepage.html")

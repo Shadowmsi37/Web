@@ -13,7 +13,6 @@
                 <td>Name</td>
                 <td>Email</td>
                 <td>Contact</td>
-                <td>Address</td>
                 <td>Table No</td>
                 <td>Table Image</td>
                 <td>Table Capacity</td>
@@ -27,14 +26,13 @@
                 <td>{{i.Customer.Customer_Name}}</td>
                 <td>{{i.Customer.Customer_Email}}</td>
                 <td>{{i.Customer.Customer_Contact}}</td>
-                <td>{{i.Customer.Customer_Address}}</td>
                 <td>{{i.Table.Table_No}}</td>
                 <td><img src="{{i.Table.Table_Photo}}"  width="100" height="100"></td>
                 <td>{{i.Table.Table_Capacity}}</td>
                 <td>{{i.view.Date}}</td>
                 <td>{{i.view.Time}}</td>
-                <td><a href="{% url 'webRestaurants:Accepted' i.id %}">Accepted</a></td>
-                <td><a href="{% url 'webRestaurants:Rejected' i.id %}">Rejected</a></td>
+                <td><a href="{% url 'webwaiter:Accepted' i.id %}">Accepted</a></td>
+                <td><a href="{% url 'webwaiter:Rejected' i.id %}">Rejected</a></td>
             </tr>
             {% endfor %}
         </table>

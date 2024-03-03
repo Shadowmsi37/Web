@@ -174,7 +174,7 @@ def Accepted(request,id):
         Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
         email = Customer["Customer_Email"]
         send_mail(
-        'Booking Table', 
+        'Reservation Status', 
         "\rHello \r\n Your Table has been Booked Successfully \r\n Your Waiter is " + waiter_name,#body
         settings.EMAIL_HOST_USER,
         [email],
@@ -191,8 +191,8 @@ def Rejected(request,id):
     Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
     email = Customer["Customer_Email"]
     send_mail(
-    'Table Booking', 
-    "\rHello \r\n Your Table Booking has Rejected By Our Restaurant  ",#body
+    'Reservation Status', 
+    "\rHello \r\n Your Table Booking has been Rejected By Our Restaurant",#body
     settings.EMAIL_HOST_USER,
     [email],
     )
