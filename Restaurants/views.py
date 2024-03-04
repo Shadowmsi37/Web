@@ -5,7 +5,7 @@ import pyrebase
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from Admin.views import FoodType
+
 
 # Create your views here.
 
@@ -96,7 +96,7 @@ def AddFood(request):
         return render(request,"Restaurants/AddFood.html",{"Category":ft_data})
 
 def AjaxCategory(request):
-    Category=db.collection("tbl_Category").where("FoodType_id","==",request.GET.get("did")).stream()
+    Category=db.collection("tbl_FoodType").where("Category_id","==",request.GET.get("did")).stream()
     Category_data=[]
     for ft in Category:
         Category_data.append({"Category":ft.to_dict(),"id":ft.id})
@@ -150,9 +150,9 @@ def ViewBooking(request):
         for i in vb:
             data=i.to_dict()
             Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
-            Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
+            # Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
             Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
-            vb_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
+            vb_data.append({"view":data,"id":i.id,"Customer":Customer,"Table":Table})
             return render(request,"Restaurants/ViewBooking.html",{"view":vb_data})
         else:
             return render(request,"Restaurants/ViewBooking.html")

@@ -195,30 +195,16 @@ def ViewRestaurant(request):
             return render(request,"Admin/ViewRestaurant.html")
 
 def Accepted(request,id):
-    req=db.collection("tbl_Restaurant").stream()
-    r=db.collection("tbl_Restaurant").where("Restaurant_id", "==", request.session["rid"]).stream()
-    r_data=[]
-    for i in r:
-        data=i.to_dict()
-        r_data.append({"r":data,"id":i.id})
-    if request.method=="POST":
-        restaurantdata = db.collection("tbl_Restaurant").document(request.POST.get("Restaurant")).get().to_dict()
-        restaurant_name = restaurantdata["Restaurant_Name"]
-        data={"Restaurant_id":request.POST.get("Restaurant"),"Restaurant_Status":1}
-        db.collection("tbl_Restaurant").document(id).update(data)
-
-        Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
-        email = Restaurant["Restaurant_Email"]
-        send_mail(
-        'Restaurant Status', 
-        "\rHello \r\n Your Restaurant has been Booked Successfully \r\n Your Restaurant Name is " + restaurant_name,#body
-        settings.EMAIL_HOST_USER,
-        [email],
-        )
-        
-        return render(request,"Admin/Homepage.html",{"msg":email})   
-    else:
-         return render(request,"Admin/ViewRestaurant.html",{"Waiter":r_data})
+    req=db.collection("tbl_Restaurant").document(id).update({"Booking_Status":1})
+    Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
+    email = Restaurant["Restaurant_Email"]
+    send_mail(
+    'Reservation Status', 
+    "\rHello \r\n Your Restaurant has not been Approved\r\n try to contact us",#body
+    settings.EMAIL_HOST_USER,
+    [email],
+    )
+    return render(request,"Admin/ViewRestaurant.html",{"msg":email})
     
 
 

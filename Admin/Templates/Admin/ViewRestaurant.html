@@ -22,13 +22,13 @@
             </tr>
             {% for i in view %}
             <tr>
-                <td>{{i.Restaurant.Restaurant_Name}}</td>
-                <td>{{i.Restaurant.Restaurant_Email}}</td>
-                <td>{{i.Restaurant.Restaurant_Contact}}</td>
-                <td><img src="{{i.Restaurant.Restaurant_Photo}}"  width="100" height="100"></td>
-                <td>{{i.Restaurant.Restaurant_District}}</td>
-                <td>{{i.Restaurant.Restaurant_Place}}</td>
-                <td>{{i.Restaurant.Restaurant_Address}}</td>
+                <td>{{i.view.Restaurant_Name}}</td>
+                <td>{{i.view.Restaurant_Email}}</td>
+                <td>{{i.view.Restaurant_Contact}}</td>
+                <td><img src="{{i.view.Restaurant_Photo}}"  width="100" height="100"></td>
+                <td>{{i.view.Restaurant_District}}</td>
+                <td>{{i.view.Restaurant_Place}}</td>
+                <td>{{i.view.Restaurant_Address}}</td>
                 <td><a href="{% url 'webadmin:Accepted' i.id %}">Accepted</a></td>
                 <td><a href="{% url 'webadmin:Rejected' i.id %}">Rejected</a></td>
             </tr>
