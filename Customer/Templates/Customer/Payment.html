@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advance Payment Form</title>
+</head>
+<body>
+    <h2>Advance Payment Form</h2>
+    <form action="" method="post">
+        {% csrf_token  %}
+
+        <table>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" id="name" name="name"></td>
+            </tr>
+            <tr>
+                <td><label for="amount">Amount:</label></td>
+                <td>$50</td>
+            </tr>
+            <tr>
+                <td><label for="payment_method">Payment Method:</label></td>
+                <td>
+                    <select id="payment_method" name="payment_method">
+                        <option value="credit_card">Credit Card</option>
+                        <option value="debit_card">Debit Card</option>
+                        <option value="paypal">UPI</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

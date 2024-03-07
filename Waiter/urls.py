@@ -10,5 +10,4 @@ urlpatterns=[
         path('Accepted/<str:id>',views.Accepted,name="Accepted"),
         path('Rejected/<str:id>',views.Rejected,name="Rejected"),
 
-
 ]

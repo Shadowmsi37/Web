@@ -77,7 +77,8 @@ def Rejected(request,id):
     settings.EMAIL_HOST_USER,
     [email],
     )
-    return render(request,"Waiter/Homepage.html",{"msg":email})    
+    return render(request,"Waiter/Homepage.html",{"msg":email}) 
+
 
 
 def Homepage(request):
