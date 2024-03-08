@@ -125,4 +125,8 @@ def Login(request):
         else:
             return render(request,"Guest/Login.html",{"msg":"error"})    
     else:
-       return render(request,"Guest/Login.html")            
+       return render(request,"Guest/Login.html")  
+
+          
+def index(request):
+    return render(request,"Guest/index.html")

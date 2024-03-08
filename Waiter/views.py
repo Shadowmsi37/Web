@@ -49,17 +49,16 @@ def ViewCustomers(request):
             vc_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
             return render(request,"Waiter/ViewCustomers.html",{"view":vc_data})
     else:
-            return render(request,"Waiter/ViewCustomers.html")
+        return render(request,"Waiter/ViewCustomers.html")
     
 def Accepted(request,id):
-    req=db.collection("tbl_Booking").stream()
+    req=db.collection("tbl_Booking").where("Waiter_id", "==", request.session["wid"]).stream()
     w=db.collection("tbl_Waiter").where("Restaurant_id", "==", request.session["rid"]).stream()
     w_data=[]
     for i in w:
         data=i.to_dict()
         w_data.append({"w":data,"id":i.id})
-    if request.method=="POST":
-        data={"Waiter_id":request.POST.get("Waiter"),"Waiter_Status":1}
+        data={"Waiter_id":request.session["wid"],"Waiter_Status":1}
         db.collection("tbl_Booking").document(id).update(data)
         return render(request,"Waiter/Homepage.html")   
     else:
@@ -68,7 +67,8 @@ def Accepted(request,id):
 
 
 def Rejected(request,id):
-    req=db.collection("tbl_Booking").document(id).update({"Waiter_Status":0})
+    req=db.collection("tbl_Booking").where("Waiter_id", "==", request.session["wid"]).stream()
+    req=db.collection("tbl_Booking").document(id).update({"Waiter_Status":3})
     Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
     email = Customer["Customer_Email"]
     send_mail(

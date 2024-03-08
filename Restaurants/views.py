@@ -145,17 +145,16 @@ def ChangePassword(request):
     return render(request,"Restaurants/Homepage.html",{"msg":email})
 
 def ViewBooking(request):
-        vb = db.collection("tbl_Booking").where("Booking_Status","==",0).stream() 
+        Table=db.collection("tbl_Table").where("Restaurant_id", "==", request.session["rid"]).stream()
         vb_data=[]
-        for i in vb:
-            data=i.to_dict()
-            Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
-            # Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
-            Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
-            vb_data.append({"view":data,"id":i.id,"Customer":Customer,"Table":Table})
-            return render(request,"Restaurants/ViewBooking.html",{"view":vb_data})
-        else:
-            return render(request,"Restaurants/ViewBooking.html")
+        for t in Table:
+            vb = db.collection("tbl_Booking").where("Booking_Status","==",0).where("Table_id","==",t.id).stream() 
+            for i in vb:
+                data=i.to_dict()
+                Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
+                Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
+                vb_data.append({"view":data,"id":i.id,"Customer":Customer,"Table":Table})
+                return render(request,"Restaurants/ViewBooking.html",{"view":vb_data})
 
 
 def Accepted(request,id):
@@ -198,6 +197,8 @@ def Rejected(request,id):
     )
     return render(request,"Restaurants/ViewBooking.html",{"msg":email})    
 
+def ReassignWaiter(request):
+            return render(request,"Restaurants/ReassignWaiter.html")
 
 def Homepage(request):
     return render(request,"Restaurants/Homepage.html")
