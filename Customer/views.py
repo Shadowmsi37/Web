@@ -47,6 +47,9 @@ def ViewTable(request,id):
 def Homepage(request):
     return render(request,"Customer/Homepage.html")
 
+def Payment(request):
+    return render(request,"Customer/Payment.html")
+
 def ViewRestaurant(request):
     vr=db.collection("tbl_Restaurant").stream()
     vr_data=[]

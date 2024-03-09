@@ -32,13 +32,6 @@ def AjaxPlace(request):
         place_data.append({"place":p.to_dict(),"id":p.id})
     return render(request,"Guest/AjaxPlace.html",{"place":place_data})
 
-def AjaxCategory(request):
-    Category=db.collection("tbl_Category").where("FoodType_id","==",request.GET.get("did")).stream()
-    Category_data=[]
-    for ft in Category:
-        Category_data.append({"Category":ft.to_dict(),"id":ft.id})
-    return render(request,"Guest/AjaxCategory.html",{"Category":Category_data})
-
 
 def RestaurantRegistration(request):
     dis=db.collection("tbl_district").stream()

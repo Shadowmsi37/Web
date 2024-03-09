@@ -24,7 +24,6 @@ config = {
 firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 st = firebase.storage()
-
 db = firestore.client()
 
 def AddTable(request):
@@ -76,33 +75,6 @@ def AjaxPlace(request):
         place_data.append({"place":p.to_dict(),"id":p.id})
     return render(request,"Restaurants/AjaxPlace.html",{"place":place_data})
 
-
-def AddFood(request):
-    ft=db.collection("tbl_Category").stream()
-    ft_data=[]
-    for i in ft:
-        data=i.to_dict()
-        ft_data.append({"ft":data,"id":i.id})
-    if request.method=="POST":
-        
-        image=request.FILES.get("Photo")
-        if image:
-            path="FoodPhoto/"+image.name
-            st.child(path).put(image)
-            fp_url=st.child(path).get_url(None)
-        db.collection("tbl_Food").add({"Food_id":FoodType.uid,"Food_Name":request.POST.get("Name"),"Food_Price":request.POST.get("Price"),"Food_Description":request.POST.get("Description"),"FoodType_id":request.POST.get("FoodType"),"Food_Photo":fp_url})
-        return render(request,"Restaurants/AddFood.html")
-    else:    
-        return render(request,"Restaurants/AddFood.html",{"Category":ft_data})
-
-def AjaxCategory(request):
-    Category=db.collection("tbl_FoodType").where("Category_id","==",request.GET.get("did")).stream()
-    Category_data=[]
-    for ft in Category:
-        Category_data.append({"Category":ft.to_dict(),"id":ft.id})
-    return render(request,"Restaurants/AjaxCategory.html",{"Category":Category_data})
-
-
 def Complains(request):
     com=db.collection("tbl_Complains").stream()
     com_data=[]
@@ -110,7 +82,7 @@ def Complains(request):
         data=i.to_dict()
         com_data.append({"com":data,"id":i.id})
     if request.method=="POST":
-        data={"Complains_name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content")}
+        data={"Complains_name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0}
         db.collection("tbl_Complains").add(data)
         return redirect("webRestaurants:Complains")
     else:

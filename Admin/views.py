@@ -80,66 +80,6 @@ def delPlace(request,id):
 def editPlace(request,id):
     db.collection()
 
-   
-def Category(request):
-
-   ft = db.collection("tbl_Category").stream()
-   ft_data = []
-   for i in ft:
-      ft_data.append({"Category":i.to_dict(),"id":i.id})
-   if request.method == "POST":
-      data = {"Category_name":request.POST.get("Category")}
-      db.collection("tbl_Category").add(data)
-      return redirect("webadmin:Category")
-   else:
-      return render(request,"Admin/Category.html",{"Category":ft_data})
-   
-def delCategory(request,id):
-    db.collection("tbl_Category").document(id).delete()
-    return redirect("webadmin:Category")
-
-def editCategory(request,id):
-    cat = db.collection("tbl_Category").document(id).get().to_dict()
-    if request.method == "POST":
-        db.collection("tbl_Category").document(id).update({"Category_name":request.POST.get("Category")})
-        return redirect("webadmin:Category")
-    else:
-        return render(request,"Admin/Category.html",{"cat":cat})
-
-      
-def FoodType(request):
-    ft=db.collection("tbl_Category").stream()
-    ft_data=[]
-    for i in ft:
-        data=i.to_dict()
-        ft_data.append({"ft":data,"id":i.id})
-    result=[]
-    FoodType_data=db.collection("tbl_FoodType").stream()
-    for FoodType in FoodType_data:
-        FoodType_dict=FoodType.to_dict()
-        Category=db.collection("tbl_Category").document(FoodType_dict["Category_id"]).get().to_dict()
-        result.append({'FoodType_data':FoodType_dict,'Category_data':Category,'FoodTypeid':FoodType.id})
-    if request.method=="POST":
-        data={"Category_id":request.POST.get("Category"),"FoodType_name":request.POST.get("FoodType")}
-        db.collection("tbl_FoodType").add(data)
-        return redirect("webadmin:FoodType")
-    else:
-        return render(request,"Admin/FoodType.html",{"Category":ft_data,"FoodType":result})
-    
-def delFoodType(request,id):
-    db.collection("tbl_FoodType").document(id).delete()
-    return redirect("webadmin:FoodType") 
-
-def editFoodType(request,id):
-    ft=db.collection("tbl_FoodType").document(id).get().to_dict()
-    if request.method=="POST":
-        data={"FoodType_name":request.POST.get("FoodType")}
-        db.collection("tbl_FoodType").document(id).update(data)
-        return redirect("webadmin:FoodType")
-    else:
-        return render(request,"Admin/FoodType.html",{"ft_data":ft})
-
-         
 
 def Admin(request):
     
@@ -163,7 +103,7 @@ def MyProfile(request):
 def EditProfile(request):
     Admin=db.collection("tbl_Admin").document(request.session["aid"]).get().to_dict()
     if request.method=="POST":
-        data={"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")}
+        data={"Admin_Name":request.POST.get("Name"),"Admin_Contact":request.POST.get("Contact")}
         db.collection("tbl_Admin").document(request.session["aid"]).update(data)
         return redirect("webadmin:MyProfile")
     else:
