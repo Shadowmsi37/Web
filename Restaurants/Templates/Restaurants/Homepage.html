@@ -8,11 +8,11 @@
 <body>
     <a href="{% url 'webRestaurants:MyProfile' %}">MyProfile</a>
     <a href="{% url 'webRestaurants:AddWaiter' %}">AddWaiter</a>
-    <a href="{% url 'webRestaurants:AddFood' %}">AddFood</a>
     <a href="{% url 'webRestaurants:AddTable' %}">AddTable</a>
     <a href="{% url 'webRestaurants:ViewBooking' %}">View Booking</a>
     <a href="{% url 'webRestaurants:ReassignWaiter' %}">View Reassign Waiter</a>
-
+    <a href="{% url 'webRestaurants:Complains' %}">Raise Complains</a>
+    <a href="{% url 'webRestaurants:ViewComplains' %}">View Complains</a>
 </body>
 {% if msg %}
 <script>

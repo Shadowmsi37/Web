@@ -82,11 +82,25 @@ def Complains(request):
         data=i.to_dict()
         com_data.append({"com":data,"id":i.id})
     if request.method=="POST":
-        data={"Complains_name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0}
+        data={"Complains_id":Complains.uid,"Complains_name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0}
         db.collection("tbl_Complains").add(data)
         return redirect("webRestaurants:Complains")
     else:
         return render(request,"Restaurants/Complains.html",{"Complains":com_data})
+    
+def ViewComplains(request):
+        Table=db.collection("tbl_Table").where("Restaurant_id", "==", request.session["rid"]).stream()
+        VC_data=[]
+        for t in Table:
+            VC = db.collection("tbl_Booking").where("Booking_Status","==",0).where("Table_id","==",t.id).stream() 
+            for i in VC:
+                data=i.to_dict()
+                Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
+                Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
+                Complains=db.collection("tbl_Complains").document(data["Complains_id"]).get().to_dict()
+                VC_data.append({"view":data,"id":i.id,"Customer":Customer,"Table":Table,"Complains":Complains})
+                return render(request,"Restaurants/ViewBooking.html",{"view":VC_data})
+
 
 
 

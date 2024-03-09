@@ -6,6 +6,7 @@ urlpatterns=[
         path('AddWaiter/',views.AddWaiter,name="AddWaiter"),
         path('AjaxPlace/',views.AjaxPlace,name="AjaxPlace"),
         path('Complains/',views.Complains,name="Complains"),
+        path('ViewComplains/',views.ViewComplains,name="ViewComplains"),
         path('MyProfile/',views.MyProfile,name="MyProfile"),
         path('EditProfile/',views.EditProfile,name="EditProfile"),
         path('ChangePassword/',views.ChangePassword,name="ChangePassword"),
