@@ -18,7 +18,7 @@ def MyProfile(request):
 def EditProfile(request):
     Waiter=db.collection("tbl_Waiter").document(request.session["wid"]).get().to_dict()
     if request.method=="POST":
-        data={"Waiter_Name":request.POST.get("Name"),"Waiter_Email":request.POST.get("Email"),"Waiter_Contact":request.POST.get("Contact")}
+        data={"Waiter_Name":request.POST.get("Name"),"Waiter_Contact":request.POST.get("Contact")}
         db.collection("tbl_Waiter").document(request.session["wid"]).update(data)
         return redirect("webwaiter:MyProfile")
     else:
@@ -31,7 +31,7 @@ def ChangePassword(request):
     password_link = firebase_admin.auth.generate_password_reset_link(email) 
     send_mail(
     'Reset your password ', 
-    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your D MARKET user.",#body
+    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
     settings.EMAIL_HOST_USER,
     [email],
     )

@@ -17,7 +17,7 @@ def MyProfile(request):
 def EditProfile(request):
     Customer=db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
     if request.method=="POST":
-        data={"Customer_Name":request.POST.get("Name"),"Customer_Email":request.POST.get("Email"),"Customer_Contact":request.POST.get("Contact")}
+        data={"Customer_Name":request.POST.get("Name"),"Customer_Contact":request.POST.get("Contact")}
         db.collection("tbl_Customer").document(request.session["cid"]).update(data)
         return redirect("webcustomer:MyProfile")
     else:
@@ -30,7 +30,7 @@ def ChangePassword(request):
     password_link = firebase_admin.auth.generate_password_reset_link(email) 
     send_mail(
     'Reset your password ', 
-    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your D MARKET user.",#body
+    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
     settings.EMAIL_HOST_USER,
     [email],
     )

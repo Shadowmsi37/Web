@@ -125,7 +125,7 @@ def MyProfile(request):
 def EditProfile(request):
     Restaurant=db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
     if request.method=="POST":
-        data={"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address")}
+        data={"Restaurant_Name":request.POST.get("Name"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address")}
         db.collection("tbl_Restaurant").document(request.session["rid"]).update(data)
         return redirect("webRestaurants:MyProfile")
     else:
@@ -138,7 +138,7 @@ def ChangePassword(request):
     password_link = firebase_admin.auth.generate_password_reset_link(email) 
     send_mail(
     'Reset your password ', 
-    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your D MARKET user.",#body
+    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
     settings.EMAIL_HOST_USER,
     [email],
     )

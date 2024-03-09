@@ -7,6 +7,7 @@ urlpatterns=[
         path('AjaxPlace/',views.AjaxPlace,name="AjaxPlace"),
         path('AjaxCategory/',views.AjaxCategory,name="AjaxCategory"),
         path('Login/',views.Login,name="Login"),
+        path('ForgetPassword/',views.ForgetPassword,name="ForgetPassword"),
         path('index/',views.index,name="index"),
 
 ]
