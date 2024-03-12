@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Contact</td>
+                <td>Table No</td>
+                <td>Booked Date</td>
+                <td>Booked Time</td>
+                <td>Action</td>
+            </tr>
+            {% for i in view %}
+            <tr>
+                <td>{{i.Customer.Customer_Name}}</td>
+                <td>{{i.Customer.Customer_Email}}</td>
+                <td>{{i.Customer.Customer_Contact}}</td>
+                <td>{{i.Restaurant.Restaurant_Name}}</td>
+                <td>{{i.Restaurant.Restaurant_Email}}</td>
+                <td>{{i.Restaurant.Restaurant_Contact}}</td>
+                <td>{{i.Complains.Complains_Name}}</td>
+                <td>{{i.Complains.Complains_Content}}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

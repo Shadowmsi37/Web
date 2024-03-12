@@ -8,7 +8,7 @@
 <body>
     <form action="" method="post">
         {% csrf_token %}
-        <table>
+        <table cellpadding="10">
             <tr>
                 <td>Name</td>
                 <td>Email</td>
@@ -19,6 +19,7 @@
                 <td>Table Capacity</td>
                 <td>Booked Date</td>
                 <td>Booked Time</td>
+                <td>Status</td>
                 <td>Action</td>
             </tr>
             {% for i in view %}
@@ -32,6 +33,13 @@
                 <td>{{i.Table.Table_Capacity}}</td>
                 <td>{{i.view.Date}}</td>
                 <td>{{i.view.Time}}</td>
+                <td>
+                    {% if i.view.payment_status == 1 %}
+                    <span style="color: green;">Payed</span>
+                    {% else %}
+                    <span style="color:red">Not Payed</span>
+                    {% endif %}
+                </td>
                 <td><a href="{% url 'webRestaurants:Accepted' i.id %}">Accepted</a>
                     <a href="{% url 'webRestaurants:Rejected' i.id %}">Rejected</a></td>
             </tr>

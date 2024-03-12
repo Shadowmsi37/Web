@@ -122,46 +122,21 @@ def Login(request):
             return render(request,"Guest/Login.html",{"msg":"error"})    
     else:
        return render(request,"Guest/Login.html")  
-
-def ForgetPassword(request):
-    if request.method == "POST":
-        Email = request.POST.get("Email")
-        Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
-        customer_email = Customer.get("Customer_Email")
-        
-        Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
-        restaurant_email = Restaurant.get("Restaurant_Email")
-        
-        Waiter = db.collection("tbl_Waiter").document(request.session["wid"]).get().to_dict()
-        waiter_email = Waiter.get("Waiter_Email")
-        
-        if Email == customer_email:
-            password_link = firebase_admin.auth.generate_password_reset_link(customer_email) 
-            send_mail(
-                'Reset your password ', 
-                "\rHello \r\nFollow this link to reset your Project password for your " + customer_email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
-                settings.EMAIL_HOST_USER,
-                [customer_email],
-                )
-            return render(request, "Guest/CustomerResetLinkSent.html")
-        elif Email == restaurant_email:
-            send_mail(
-                'Reset your password ', 
-                "\rHello \r\nFollow this link to reset your Project password for your " + restaurant_email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
-                settings.EMAIL_HOST_USER,
-                [restaurant_email],
-                )
-            return render(request, "Guest/RestaurantResetLinkSent.html")
-        elif Email == waiter_email:
-            send_mail(
-                'Reset your password ', 
-                "\rHello \r\nFollow this link to reset your Project password for your " + waiter_email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
-                settings.EMAIL_HOST_USER,
-                [waiter_email],
-                )
-            return render(request, "Guest/WaiterResetLinkSent.html")
-        else:
-            return render(request, "Guest/Login.html")
           
 def index(request):
     return render(request,"Guest/index.html")
+
+
+def fpassword(request):
+    if request.method == "POST":
+        email = request.POST.get("txt_email")
+        reset_link = firebase_admin.auth.generate_password_reset_link(email)
+        send_mail(
+            'Forgot password ', #subject
+            "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + reset_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your D MARKET team.",#body
+            settings.EMAIL_HOST_USER,
+            [email],
+        )
+        return render(request,"Guest/Forgot_password.html",{"msg":email})
+    else:
+        return render(request,"Guest/Forgot_password.html")

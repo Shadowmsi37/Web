@@ -39,7 +39,7 @@ def ChangePassword(request):
 
 
 def ViewCustomers(request):
-    vc = db.collection("tbl_Booking").where("Waiter_Status","==",0).stream()
+    vc = db.collection("tbl_Booking").where("Waiter_id","==",request.session["wid"]).stream()
     vc_data=[]
     for i in vc:
             data=i.to_dict()
@@ -67,9 +67,9 @@ def Accepted(request,id):
 
 
 def Rejected(request,id):
-    req=db.collection("tbl_Booking").where("Waiter_id", "==", request.session["wid"]).stream()
-    req=db.collection("tbl_Booking").document(id).update({"Waiter_Status":3})
-    Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
+    req=db.collection("tbl_Booking").document(id).update({"Waiter_id":"","Booking_Status":0})
+    bk = db.collection("tbl_Booking").document(id).get().to_dict()
+    Customer = db.collection("tbl_Customer").document(bk["Customer_id"]).get().to_dict()
     email = Customer["Customer_Email"]
     send_mail(
     'Reservation Status', 

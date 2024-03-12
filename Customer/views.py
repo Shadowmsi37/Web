@@ -48,7 +48,23 @@ def Homepage(request):
     return render(request,"Customer/Homepage.html")
 
 def Payment(request):
-    return render(request,"Customer/Payment.html")
+    pay = db.collection("tbl_Booking").where("Booking_Status", "==",0).where("Customer_id", "==",request.session["cid"]).where("payment_status", "==",0).stream()
+    ids = ""
+    for i in pay:
+        ids = i.id
+    # print(ids)
+    if request.method == "POST":
+        db.collection("tbl_Booking").document(ids).update({"payment_status":1})
+        return redirect("webcustomer:loader")
+        # return render(request,"Customer/Payment.html")
+    else:
+        return render(request,"Customer/Payment.html")
+
+def loader(request):
+    return render(request,"Customer/Loader.html")
+
+def paymentsuc(request):
+    return render(request,"Customer/Payment_suc.html")
 
 def ViewRestaurant(request):
     vr=db.collection("tbl_Restaurant").stream()
@@ -66,9 +82,23 @@ def Booking(request,id):
         data=i.to_dict()
         b_data.append({"b":data,"id":i.id})
     if request.method=="POST":
-        data={"Table_id":id,"Customer_id":request.session["cid"],"Date":request.POST.get("Date"),"Time":request.POST.get("Time"),"Booking_Status":0,"Waiter_Status":0,"Waiter_id":""}
+        data={"Table_id":id,"Customer_id":request.session["cid"],"Date":request.POST.get("Date"),"Time":request.POST.get("Time"),"Booking_Status":0,"payment_status":0,"Waiter_Status":0,"Waiter_id":""}
         db.collection("tbl_Booking").add(data)
-        return render(request,"Customer/Homepage.html")
+        return redirect("webcustomer:Payment")
     else:
         return render(request,"Customer/Booking.html")
+    
+
+def Complains(request):
+    com=db.collection("tbl_Complains").stream()
+    com_data=[]
+    for i in com:
+        data=i.to_dict()
+        com_data.append({"com":data,"id":i.id})
+    if request.method=="POST":
+        data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Reply":"","Customer_id":["cid"],"Restaurant_id":["rid"]}
+        db.collection("tbl_Complains").add(data)
+        return redirect("webcustomer:Complains")
+    else:
+        return render(request,"Customer/Complains.html",{"Complains":com_data})
 

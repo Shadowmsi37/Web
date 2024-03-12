@@ -160,6 +160,10 @@ def Rejected(request,id):
     )
     return render(request,"Admin/ViewRestaurant.html",{"msg":email})
 
+
+def ViewComplains(request):
+    return render(request,"Admin/ViewComplains.html",{"view":VC_data})
+
     
 def Homepage(request):
     return render(request,"Admin/Homepage.html") 
