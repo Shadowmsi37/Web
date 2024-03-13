@@ -111,8 +111,9 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">LOGIN/SIGN UP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#login">Login</a></li>
-                                    <li><a href="#signup">Sign Up</a></li>
+                                    <li><a href="{% url 'webguest:Login' %}">Login</a></li>
+                                    <li><a href="{% url 'webguest:RestaurantRegistration' %}">Restaurant Registration</a></li>
+                                    <li><a href="{% url 'webguest:CustomerRegistration' %}">Customer Registration</a></li>
                                 </ul>
                             </li>
                             <!-- End Dropdown for Login/Sign Up -->
@@ -142,11 +143,11 @@
                 </div>
                 <div class="col-md-6">
                     <div class="img-section">
-                       <img src="images/kabob.jpg" width="250" height="220">
-                       <img src="images/limes.jpg" width="250" height="220">
-                       <div class="img-section-space"></div>
-                       <img src="images/radish.jpg"  width="250" height="220">
-                       <img src="images/corn.jpg"  width="250" height="220">
+                       <img src="{% static 'Main/images/kabob.jpg' %}" width="250" height="220">
+                       <img src="{% static 'Main/images/limes.jpg' %}" width="250" height="220">
+                       <div class="{% static 'Main/img-section-space' %}"></div>
+                       <img src="{% static 'Main/images/radish.jpg' %}"  width="250" height="220">
+                       <img src="{% static 'Main/images/corn.jpg' %}"  width="250" height="220">
                    </div>
                 </div>
             </div>

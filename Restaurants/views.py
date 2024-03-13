@@ -82,7 +82,7 @@ def Complains(request):
         data=i.to_dict()
         com_data.append({"com":data,"id":i.id})
     if request.method=="POST":
-        data={"Complains_id":Complains.uid,"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0}
+        data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Restaurant_id":request.session["rid"],"waiter_id":"","customer_id":""}
         db.collection("tbl_Complains").add(data)
         return redirect("webRestaurants:Complains")
     else:

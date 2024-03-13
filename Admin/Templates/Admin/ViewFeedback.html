@@ -1,3 +1,6 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +9,23 @@
     <title>Document</title>
 </head>
 <body>
-<form action="" method="post">
+    <form action="" method="post">
         {% csrf_token %}
-    <table> 
+    <table>
+       
         <tr>
             <td>#</td>
             <td>User Name</td>
             <td>Content</td>
-            <td>Action</td>
-            
+        
         </tr>
-        {% for i in restaurant %}
+        {% for i in user %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{i.restaurant.Restaurant_Name}}</td>
-            <td>{{i.complaint.Complains_Name}}</td>
-            <td>{{i.complaint.Complains_Content}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.feedback.feedback_content}}</td>
+            
+            
         </tr>
         {% endfor %}
     </table>
@@ -29,34 +33,39 @@
        
         <tr>
             <td>#</td>
-            <td>Customer Name</td>
+            <td>Team Name</td>
             <td>Content</td>
-            <td>Action</td>
+        
+        </tr>
+        {% for i in team %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.team.team_name}}</td>
+            <td>{{i.feedback.feedback_content}}</td>
+            
             
         </tr>
-        {% for i in customer %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.customer.Customer_Name}}</td>
-            <td>{{i.complaint.Complains_Content}}</td>
-        </tr>
         {% endfor %}
     </table>
-    <table>   
+    <table>
+       
         <tr>
             <td>#</td>
-            <td>Waiter Name</td>
+            <td>Organizer Name</td>
             <td>Content</td>
-            <td>Action</td>
+        
         </tr>
-        {% for i in waiter %}
+        {% for i in organizer %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{i.waiter.Waiter_Name}}</td>
-            <td>{{i.complaint.Complains_Content}}</td>
+            <td>{{i.organizer.org_name}}</td>
+            <td>{{i.feedback.feedback_content}}</td>
+            
+            
         </tr>
         {% endfor %}
     </table>
-</form>
 </body>
 </html>
+
+{% endblock content %}

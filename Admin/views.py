@@ -162,7 +162,30 @@ def Rejected(request,id):
 
 
 def ViewComplains(request):
-    return render(request,"Admin/ViewComplains.html",{"view":VC_data})
+    
+        restaurant_data=[]
+        customer_data=[]
+        waiter_data=[]
+        rcom = db.collection("tbl_Complains").where("Restaurant_id", "!=","").where("Complains_Status", "==", 0).stream()
+        for i in rcom:
+            rdata = i.to_dict()
+            print(rdata)
+            restaurant = db.collection("tbl_Restaurant").document(rdata["Restaurant_id"]).get().to_dict()
+            restaurant_data.append({"complaint":i.to_dict(),"id":i.id,"restaurant":restaurant})
+        ccom=db.collection("tbl_Complains").where("Customer_id","!=",0).where("complaint_status","==",0).stream()
+
+        for i in ccom:
+            cdata = i.to_dict()
+            customer = db.collection("tbl_Customer").document(cdata["user_id"]).get().to_dict()
+            customer_data.append({"complaint":i.to_dict(),"id":i.id,"customer":customer}) 
+        wcom=db.collection("tbl_Complains").where("waiter_id","!=",0).where("complaint_status","==",0).stream()
+
+        for i in wcom:
+            wdata = i.to_dict()
+            waiter = db.collection("tbl_Waiter").document(wdata["Waiter_id"]).get().to_dict()
+            waiter_data.append({"complaint":i.to_dict(),"id":i.id,"waiter":waiter}) 
+        return render(request,"Admin/ViewComplains.html",{"restaurant":restaurant_data,"customer":customer_data,"waiter":waiter_data})    
+    
 
     
 def Homepage(request):

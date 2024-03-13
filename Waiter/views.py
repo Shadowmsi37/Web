@@ -83,3 +83,17 @@ def Rejected(request,id):
 
 def Homepage(request):
     return render(request,"Waiter/Homepage.html")
+
+
+def Complains(request):
+    com=db.collection("tbl_Complains").stream()
+    com_data=[]
+    for i in com:
+        data=i.to_dict()
+        com_data.append({"com":data,"id":i.id})
+    if request.method=="POST":
+        data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Restaurant_id":"","waiter_id":request.session["wid"],"customer_id":""}
+        db.collection("tbl_Complains").add(data)
+        return redirect("webwaiter:Complains")
+    else:
+        return render(request,"Restaurants/Complains.html",{"Complains":com_data})
