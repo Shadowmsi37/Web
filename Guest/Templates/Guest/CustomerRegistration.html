@@ -4,73 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style media="screen">
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('path_to_your_image.jpg'); /* Replace 'path_to_your_image.jpg' with the path to your image */
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+        header h1, footer h2 {
+            font-size: 17px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        form {
+            width: 800px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 50px 35px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        form::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            border-radius: 25px;
+            z-index: -1;
+        }
+
+        form h3 {
+            width: 100%;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        .form-group:nth-child(5),
+        .form-group:nth-child(6) {
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        input,
+        select,
+        textarea {
+            width: calc(100% - 10px);
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 3px;
+            padding: 8px 10px;
+            font-size: 14px;
+            font-weight: 300;
+            border: none;
+            color: #ffffff;
+        }
+
+        ::placeholder {
+            color: #e5e5e5;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #f39c12;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Restaurant Reservation System</h1>
+    </header>
+
     <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token  %}
-    <table>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" name="Name" id=""></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="email" name="Email" id=""></td>
-        </tr>
-        <tr>
-            <td>Contact</td>
-            <td><input type="tel" name="Contact" id=""></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="Password" id=""></td>
-        </tr>
-        <tr>
-            <td>Photo</td>
-            <td><input type="file" name="Photo" id=""></td>
-        </tr>
-        <tr>
-            <td>District</td>
-            <td><select name="district" id="district">
-                <option value="">...Select...</option>
-                {% for i in district %}
-                <option value="{{i.id}}">{{i.dis.district_name}}</option>
-            {% endfor %}</td>
-        </tr>
-        <tr>
-            <td>Place</td>
-            <td><select name="place" id="place">
-                <option value="">...Select...</option></select></td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td><textarea name="Address" id="" cols="30" rows="10"></textarea></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Register"></td>
-            
-        </tr>
-    </table>
-</form>
-</body>
-{% if msg %}
-<script>
-    alert("{{msg}}")
-</script>
-{% endif %}
-</html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $("#district").change(function () {
-        var did = $(this).val();
-        var ur = "{% url 'webguest:AjaxPlace' %}"
-        $.ajax({
-            url: ur,
-            data: { did: did, },
-            success: function (data) {
-                $("#place").html(data);
-            },
+    {% csrf_token %}
+    <h3>Registration Form</h3>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" name="Name" id="Name" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" name="Email" id="Email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+        <label for="Contact">Contact</label>
+        <input type="tel" name="Contact" id="Contact" placeholder="Enter your contact number">
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" name="Password" id="Password" placeholder="Enter your password">
+    </div>
+    <div class="form-group">
+        <label for="Photo">Photo</label>
+        <input type="file" name="Photo" id="Photo">
+    </div>
+    <div class="form-group">
+        <label for="district">District</label>
+        <select name="district" id="district">
+            <option value="">...Select...</option>
+            {% for i in district %}
+            <option value="{{i.id}}">{{i.dis.district_name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="place">Place</label>
+        <select name="place" id="place">
+            <option value="">...Select...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Address">Address</label>
+        <textarea name="Address" id="Address" cols="30" rows="10" placeholder="Enter your address"></textarea>
+    </div>
+    <input type="submit" value="Register">
+    </form>
+
+    <footer>
+        <h2>Restaurant Reservation System</h2>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#district").change(function () {
+            var did = $(this).val();
+            var ur = "{% url 'webguest:AjaxPlace' %}";
+            $.ajax({
+                url: ur,
+                data: { did: did },
+                success: function (data) {
+                    $("#place").html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
         });
-    });
-</script>
+    </script>
+</body>
 </html>
