@@ -135,29 +135,29 @@ def ViewRestaurant(request):
             return render(request,"Admin/ViewRestaurant.html")
 
 def Accepted(request,id):
-    req=db.collection("tbl_Restaurant").document(id).update({"Booking_Status":1})
-    Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
-    email = Restaurant["Restaurant_Email"]
-    send_mail(
-    'Reservation Status', 
-    "\rHello \r\n Your Restaurant has not been Approved\r\n try to contact us",#body
-    settings.EMAIL_HOST_USER,
-    [email],
-    )
+    req=db.collection("tbl_Restaurant").document(id).update({"Restaurant_Status":1})
+    # Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
+    # email = Restaurant["Restaurant_Email"]
+    # send_mail(
+    # 'Reservation Status', 
+    # "\rHello \r\n Your Restaurant has  been Approved\r\n try to contact us",#body
+    # settings.EMAIL_HOST_USER,
+    # [email],
+    # )
     return render(request,"Admin/ViewRestaurant.html",{"msg":email})
     
 
 
 def Rejected(request,id):
-    req=db.collection("tbl_Restaurant").document(id).update({"Booking_Status":2})
-    Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
-    email = Restaurant["Restaurant_Email"]
-    send_mail(
-    'Reservation Status', 
-    "\rHello \r\n Your Restaurant has not been Approved\r\n try to contact us",#body
-    settings.EMAIL_HOST_USER,
-    [email],
-    )
+    req=db.collection("tbl_Restaurant").document(id).update({"Restaurant_Status":2})
+    # Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
+    # email = Restaurant["Restaurant_Email"]
+    # send_mail(
+    # 'Reservation Status', 
+    # "\rHello \r\n Your Restaurant has not been Approved\r\n try to contact us",#body
+    # settings.EMAIL_HOST_USER,
+    # [email],
+    # )
     return render(request,"Admin/ViewRestaurant.html",{"msg":email})
 
 
@@ -169,21 +169,23 @@ def ViewComplains(request):
         rcom = db.collection("tbl_Complains").where("Restaurant_id", "!=","").where("Complains_Status", "==", 0).stream()
         for i in rcom:
             rdata = i.to_dict()
-            print(rdata)
+            # print(rdata)
             restaurant = db.collection("tbl_Restaurant").document(rdata["Restaurant_id"]).get().to_dict()
             restaurant_data.append({"complaint":i.to_dict(),"id":i.id,"restaurant":restaurant})
-        ccom=db.collection("tbl_Complains").where("Customer_id","!=",0).where("complaint_status","==",0).stream()
 
+        ccom=db.collection("tbl_Complains").where("Customer_id","!=","").where("Complains_Status","==",0).stream()
         for i in ccom:
             cdata = i.to_dict()
-            customer = db.collection("tbl_Customer").document(cdata["user_id"]).get().to_dict()
+            customer = db.collection("tbl_Customer").document(cdata["Customer_id"]).get().to_dict()
             customer_data.append({"complaint":i.to_dict(),"id":i.id,"customer":customer}) 
-        wcom=db.collection("tbl_Complains").where("waiter_id","!=",0).where("complaint_status","==",0).stream()
+        print(customer_data)
 
+        wcom=db.collection("tbl_Complains").where("waiter_id","!=","").where("Complains_Status","==",0).stream()
         for i in wcom:
             wdata = i.to_dict()
-            waiter = db.collection("tbl_Waiter").document(wdata["Waiter_id"]).get().to_dict()
-            waiter_data.append({"complaint":i.to_dict(),"id":i.id,"waiter":waiter}) 
+            waiter = db.collection("tbl_Waiter").document(wdata["waiter_id"]).get().to_dict()
+            waiter_data.append({"complaint":i.to_dict(),"id":i.id,"waiter":waiter})
+            
         return render(request,"Admin/ViewComplains.html",{"restaurant":restaurant_data,"customer":customer_data,"waiter":waiter_data})    
     
 

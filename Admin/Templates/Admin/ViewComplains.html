@@ -11,7 +11,7 @@
     <table> 
         <tr>
             <td>#</td>
-            <td>User Name</td>
+            <td>restaurant Name</td>
             <td>Content</td>
             <td>Action</td>
             
@@ -38,6 +38,7 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{i.customer.Customer_Name}}</td>
+            <td>{{i.complaint.Complains_Name}}</td>
             <td>{{i.complaint.Complains_Content}}</td>
         </tr>
         {% endfor %}
@@ -53,6 +54,7 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{i.waiter.Waiter_Name}}</td>
+            <td>{{i.complaint.Complains_Name}}</td>
             <td>{{i.complaint.Complains_Content}}</td>
         </tr>
         {% endfor %}
