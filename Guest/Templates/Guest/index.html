@@ -1,196 +1,346 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Restaurant</title>
-        <link rel="stylesheet" href="{% static 'Main/css/normalize.css '%}">
-        <link rel="stylesheet" href="{% static 'Main/css/main.css '%}" media="screen" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'Main/css/bootstrap.css '%}">
-        <link rel="stylesheet" href="{% static 'Main/css/style-portfolio.css '%}">
-        <link rel="stylesheet" href="{% static 'Main/css/picto-foundry-food.css '%}" />
-        <link rel="stylesheet" href="{% static 'Main/css/jquery-ui.css '%}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="{% static 'Main/css/font-awesome.min.css '%}" rel="stylesheet">
-        <link rel="icon" href="favicon-1.ico" type="image/x-icon">
-    </head>
+  <title>Restaurant</title>
 
-    <body>
 
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="row">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Restaurant</a>
-                    </div>
-                    <style>
-                        /* Styling for the dropdown toggle link */
-.dropdown-toggle {
-    color: #333; /* Link color */
-    font-weight: bold; /* Bold font weight */
-    font-size: 18px; /* Increase font size */
-    position: relative; /* Required for pseudo-element */
-}
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'Main/css/bootstrap.css' %}" />
 
-/* Running color animation */
-@keyframes runningColor {
-    0% { color: #ff6347; } /* Start color */
-    50% { color: #4169e1; } /* Mid color */
-    100% { color: #ff6347; } /* End color */
-}
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
 
-/* Apply animation to the link text */
-.dropdown-toggle::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #ff6347; /* Initial color */
-    animation: runningColor 2s infinite; /* Animation properties */
-}
-/* Styling for the dropdown menu */
-.dropdown-menu {
-    background-color: #f8f9fa; /* Background color */
-    border: 1px solid #ced4da; /* Border color */
-    border-radius: 4px; /* Rounded corners */
-    padding: 8px 0; /* Padding */
-    font-size: 16px; /* Increase font size */
-}
+  <!-- font awesome style -->
+  <link href="{% static 'Main/css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- slidck slider -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css.map" integrity="undefined" crossorigin="anonymous" />
 
-/* Styling for individual menu items */
-.dropdown-menu li {
-    padding: 8px 20px; /* Padding for list items */
-}
 
-/* Styling for the links inside the dropdown menu */
-.dropdown-menu li a {
-    color: #333; /* Link color */
-    font-size: 18px; /* Increase font size */
-}
+  <!-- Custom styles for this template -->
+  <link href="{% static 'Main/css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'Main/css/responsive.css' %}" rel="stylesheet" />
 
-/* Hover effect for links inside the dropdown menu */
-.dropdown-menu li a:hover {
-    background-color: #e9ecef; /* Hover background color */
-}
+</head>
 
-/* Styling for the caret */
-.dropdown-toggle .caret {
-    border-top-color: #333; /* Color of the caret */
-}
+<body>
 
-/* Optional: Styling for the dropdown toggle link */
-.dropdown-toggle {
-    color: #333; /* Link color */
-    font-weight: bold; /* Bold font weight */
-    font-size: 18px; /* Increase font size */
-}
-
-                        
-                    </style>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav main-nav  clear navbar-right">
-                            <li><a class="navactive color_animation" href="#top">WELCOME</a></li>
-                            <li><a class="color_animation" href="#story">ABOUT</a></li>
-                            <li><a class="color_animation" href="#Restaurant">RESTAURANT</a></li>
-                            <li><a class="color_animation" href="#reservation">RESERVATION</a></li>
-                            <!-- Dropdown for Login/Sign Up -->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">LOGIN/SIGN UP <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'webguest:Login' %}">Login</a></li>
-                                    <li><a href="{% url 'webguest:RestaurantRegistration' %}">Restaurant Registration</a></li>
-                                    <li><a href="{% url 'webguest:CustomerRegistration' %}">Customer Registration</a></li>
-                                </ul>
-                            </li>
-                            <!-- End Dropdown for Login/Sign Up -->
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                    
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              Restaurant
+            </span>
+          </a>
+          <div class="" id="">
+            <div class="User_option">
+              <a href="{% url 'webguest:Login' %}">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>Login</span>
+              </a>
+              <form class="form-inline ">
+                <input type="search" placeholder="Search" />
+                <button class="btn  nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <img src="{% static 'Main/images/menu.png' %}" alt="">
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="blog.html">Blog</a>
+              </div>
+            </div>
+          </div>
         </nav>
-         
-        <div id="top" class="starter_container bg">
-            <div class="follow_container">
-                <div class="col-md-6 col-md-offset-3">
-                    <h2 class="top-title"> Restaurant</h2>
-                    <h2 class="white second-title">" Best in the city "</h2>
-                    <hr>
-                </div>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div class="container ">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <div class="detail-box">
+              <h1>
+                Discover Restuarant And Food
+              </h1>
+              <p>
+                Join us for an unforgettable dining experience where every plate tells a tale of flavor, culture, and culinary excellence.
+              </p>
             </div>
+            <div class="find_container ">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <form>
+                      <div class="form-row ">
+                        <div class="form-group col-lg-5">
+                          <input type="text" class="form-control" id="inputHotel" placeholder="Restaurant Name">
+                        </div>
+                        <div class="form-group col-lg-3">
+                          <input type="text" class="form-control" id="inputLocation" placeholder="All Locations">
+                          <span class="location_icon">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                        <div class="form-group col-lg-3">
+                          <div class="btn-box">
+                            <button type="submit" class="btn ">Search</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="slider_container">
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img1.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img2.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img3.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img4.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'images/slider-img1.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img2.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img3.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="{% static 'Main/images/slider-img4.png' %}" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
 
-        <!-- ============ About Us ============= -->
 
-        <section id="story" class="description_content">
-            <div class="text-content container">
-                <div class="col-md-6">
-                    <h1>About us</h1>
-                    <div class="fa fa-cutlery fa-2x"></div>
-                    <p class="desc-text">Restaurant is a place for simplicity. Good food, good beer, and good service. Simple is the name of the game, and we’re good at finding it in all the right places, even in your dining experience. We’re a small group from Denver, Colorado who make simple food possible. Come join us and see what simplicity tastes like.</p>
-                </div>
-                <div class="col-md-6">
-                    <div class="img-section">
-                       <img src="{% static 'Main/images/kabob.jpg' %}" width="250" height="220">
-                       <img src="{% static 'Main/images/limes.jpg' %}" width="250" height="220">
-                       <div class="{% static 'Main/img-section-space' %}"></div>
-                       <img src="{% static 'Main/images/radish.jpg' %}"  width="250" height="220">
-                       <img src="{% static 'Main/images/corn.jpg' %}"  width="250" height="220">
-                   </div>
-                </div>
+  <!-- recipe section -->
+
+  <section class="recipe_section layout_padding-top">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Our Best Popular Recipes
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'Main/images/r1.jpg' %}" class="box-img" alt="">
             </div>
-        </section>
-
-
-
-
-        <!-- ============ Our Restaurant  ============= -->
-
-
-        <section id ="Restaurant" class="description_content">
-            <div  class="beer background_content">
-                <h1>Great <span>Places</span> to enjoy</h1>
+            <div class="detail-box">
+              <h4>
+                Breakfast
+              </h4>
+              <a href="{% url 'webguest:Login' %}">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              </a>
             </div>
-        </section>
-
-         <!-- ============ Reservation  ============= -->
-
-         <section  id="reservation"  class="description_content">
-            <div class="featured background_content">
-                <h1><a href="{% url 'webguest:Login' %}">Reserve a Table!</a></h1>
-                
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'Main/images/r2.jpg' %}" class="box-img" alt="">
             </div>
-         </section>
-
-               <!-- ============ Footer Section  ============= -->
-
-        <footer class="sub_footer">
-            <div class="container">
-                <div class="col-md-4"><p class="sub-footer-text text-center">&copy; Restaurant 2024</p></div>
-                <div class="col-md-4"><p class="sub-footer-text text-center">Back to <a href="#top">TOP</a></p>
-                </div>
-                <div class="col-md-4"><p class="sub-footer-text text-center">Built With Care By <a href="#" target="_blank">Us</a></p></div>
+            <div class="detail-box">
+              <h4>
+                Lunch
+              </h4>
+              <a href="{% url 'webguest:Login' %}">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              </a>
             </div>
-        </footer>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mx-auto">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'Main/images/r3.jpg' %}" class="box-img" alt="">
+            </div>
+            <div class="detail-box">
+              <h4>
+                Dinner
+              </h4>
+              <a href="{% url 'webguest:Login' %}">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-box">
+        <a href="">
+          Order Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- end recipe section -->
+
+  
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="col-md-11 col-lg-10 mx-auto">
+        <div class="heading_container heading_center">
+          <h2>
+            About Us
+          </h2>
+        </div>
+        <div class="box">
+          <div class="col-md-7 mx-auto">
+            <div class="img-box">
+              <img src="{% static 'Main/images/about-img.jpg' %}" class="box-img" alt="">
+            </div>
+          </div>
+          <div class="detail-box">
+            <p>
+                We are dedicated to offering an unparalleled culinary experience that celebrates the richness and diversity of global cuisine. Located in the heart of [Location], our restaurant is a haven for food enthusiasts seeking authentic flavors and memorable dining adventures. Our passionate chefs meticulously craft each dish, drawing inspiration from culinary traditions around the world and using only the freshest, highest-quality ingredients.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+  
+  <!-- end client section -->
+
+  <div class="footer_container">
+    <!-- info section -->
+    <section class="info_section ">
+      <div class="container">
+        <div class="contact_box">
+          <a href="">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+          </a>
+          <a href="">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+          </a>
+          <a href="">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="info_links">
+          <ul>
+            <li class="active">
+              <a href="index.html">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="about.html">
+                About
+              </a>
+            </li>
+            <li>
+              <a class="" href="blog.html">
+                Blog
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="social_box">
+          <a href="">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+          <a href="">
+            <i class="fa fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- end info_section -->
 
 
-        <script type="text/javascript" src="{% static 'Main/js/jquery-1.10.2.min.js '%}"> </script>
-        <script type="text/javascript" src="{% static 'Main/js/bootstrap.min.js '%}" ></script>
-        <script type="text/javascript" src="{% static 'Main/js/jquery-1.10.2.js '%}"></script>     
-        <script type="text/javascript" src="{% static 'Main/js/jquery.mixitup.min.js '%}" ></script>
-        <script type="text/javascript" src="{% static 'Main/js/main.js '%}" ></script>
+    <!-- footer section -->
+    <footer class="footer_section">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Restaurant</a><br>
+          Distributed By: <a href="https://themewagon.com/">Restaurant</a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
 
-    </body>
+  </div>
+  <!-- jQery -->
+  <script src="{% static 'Main/js/jquery-3.4.1.min.js' %}"></script>
+  <!-- bootstrap js -->
+  <script src="{% static 'Main/js/bootstrap.js' %}"></script>
+  <!-- slick  slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <!-- custom js -->
+  <script src="{% static 'Main/js/custom.js' %}"></script>
+
+</body>
+
 </html>

@@ -16,8 +16,6 @@ urlpatterns=[
         path('Accepted/<str:id>',views.Accepted,name="Accepted"),
         path('Rejected/<str:id>',views.Rejected,name="Rejected"),
         path('Homepage/',views.Homepage,name="Homepage"),
-        path('ViewComplains/',views.ViewComplains,name="ViewComplains"),
-
-   
+        path('ViewComplains/',views.ViewComplains,name="ViewComplains"),   
 
 ]
