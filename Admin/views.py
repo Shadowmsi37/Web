@@ -92,7 +92,7 @@ def Admin(request):
             return render(request,"Admin/Admin.html",{"msg":error})
       
         db.collection("tbl_Admin").add({"Admin_id":Admin.uid,"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")})
-        return render(request,"Admin/Admin.html")
+        return render(request,"Guest/Login.html")
     else:    
         return render(request,"Admin/Admin.html")
     
