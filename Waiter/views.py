@@ -12,9 +12,13 @@ from django.contrib import messages
 db = firestore.client()
 
 def MyProfile(request):
-    Waiter=db.collection("tbl_Waiter").document(request.session["wid"]).get().to_dict()
-    return render(request,"Waiter/MyProfile.html",{"Waiter":Waiter})
-
+    if "wid" in request.session:
+        Waiter=db.collection("tbl_Waiter").document(request.session["wid"]).get().to_dict()
+        return render(request,"Waiter/MyProfile.html",{"Waiter":Waiter})
+    else:
+        return render(request,"Guest/Login.html")
+    
+    
 def EditProfile(request):
     Waiter=db.collection("tbl_Waiter").document(request.session["wid"]).get().to_dict()
     if request.method=="POST":
@@ -39,17 +43,20 @@ def ChangePassword(request):
 
 
 def ViewCustomers(request):
-    vc = db.collection("tbl_Booking").where("Waiter_id","==",request.session["wid"]).stream()
-    vc_data=[]
-    for i in vc:
-            data=i.to_dict()
-            Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
-            Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
-            Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
-            vc_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
-            return render(request,"Waiter/ViewCustomers.html",{"view":vc_data})
+    if "wid" in request.session:
+        vc = db.collection("tbl_Booking").where("Waiter_id","==",request.session["wid"]).stream()
+        vc_data=[]
+        for i in vc:
+                data=i.to_dict()
+                Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
+                Booking=db.collection("tbl_Booking").document(data["Customer_id"]).get().to_dict()
+                Table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
+                vc_data.append({"view":data,"id":i.id,"Customer":Customer,"Booking":Booking,"Table":Table})
+                return render(request,"Waiter/ViewCustomers.html",{"view":vc_data})
+        else:
+            return render(request,"Waiter/ViewCustomers.html")
     else:
-        return render(request,"Waiter/ViewCustomers.html")
+        return render(request,"Guest/Login.html")
     
 def Accepted(request,id):
     req=db.collection("tbl_Booking").where("Waiter_id", "==", request.session["wid"]).stream()
@@ -82,18 +89,27 @@ def Rejected(request,id):
 
 
 def Homepage(request):
-    return render(request,"Waiter/Homepage.html")
-
+    if "wid" in request.session:
+        return render(request,"Waiter/Homepage.html")
+    else:
+        return render(request,"Guest/Login.html")
 
 def Complains(request):
-    com=db.collection("tbl_Complains").stream()
-    com_data=[]
-    for i in com:
-        data=i.to_dict()
-        com_data.append({"com":data,"id":i.id})
-    if request.method=="POST":
-        data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Restaurant_id":"","waiter_id":request.session["wid"],"customer_id":""}
-        db.collection("tbl_Complains").add(data)
-        return redirect("webwaiter:Complains")
+    if "wid" in request.session:
+        com=db.collection("tbl_Complains").stream()
+        com_data=[]
+        for i in com:
+            data=i.to_dict()
+            com_data.append({"com":data,"id":i.id})
+        if request.method=="POST":
+            data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Restaurant_id":"","waiter_id":request.session["wid"],"customer_id":""}
+            db.collection("tbl_Complains").add(data)
+            return redirect("webwaiter:Complains")
+        else:
+            return render(request,"Restaurants/Complains.html",{"Complains":com_data})
     else:
-        return render(request,"Restaurants/Complains.html",{"Complains":com_data})
+        return render(request,"Guest/Login.html")
+    
+def Logout(request):
+    del request.session["wid"]
+    return redirect("webguest:Login")

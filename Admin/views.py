@@ -54,24 +54,28 @@ def editdistrict(request,id):
         return render(request,"Admin/District.html",{"dis_data":dis}) 
    
 def Place(request):
-    dis=db.collection("tbl_district").stream()
-    dis_data=[]
-    for i in dis:
-        data=i.to_dict()
-        dis_data.append({"dis":data,"id":i.id})
-    result=[]
-    place_data=db.collection("tbl_place").stream()
-    for place in place_data:
-        place_dict=place.to_dict()
-        district=db.collection("tbl_district").document(place_dict["district_id"]).get()
-        district_dict=district.to_dict()
-        result.append({'district_data':district_dict,'place_data':place_dict,'placeid':place.id})
-    if request.method=="POST":
-        data={"place_name":request.POST.get("Place"),"district_id":request.POST.get("district")}
-        db.collection("tbl_place").add(data)
-        return redirect("webadmin:Place")
+    if "aid" in request.session:
+        dis=db.collection("tbl_district").stream()
+        dis_data=[]
+        for i in dis:
+            data=i.to_dict()
+            dis_data.append({"dis":data,"id":i.id})
+        result=[]
+        place_data=db.collection("tbl_place").stream()
+        for place in place_data:
+            place_dict=place.to_dict()
+            district=db.collection("tbl_district").document(place_dict["district_id"]).get()
+            district_dict=district.to_dict()
+            result.append({'district_data':district_dict,'place_data':place_dict,'placeid':place.id})
+        if request.method=="POST":
+            data={"place_name":request.POST.get("Place"),"district_id":request.POST.get("district")}
+            db.collection("tbl_place").add(data)
+            return redirect("webadmin:Place")
+        else:
+            return render(request,"Admin/Place.html",{"district":dis_data,"place":result})
     else:
-        return render(request,"Admin/Place.html",{"district":dis_data,"place":result})
+        return render(request,"Guest/Login.html")
+    
     
 def delPlace(request,id):
     db.collection("tbl_place").document(id).delete()
@@ -82,24 +86,29 @@ def editPlace(request,id):
 
 
 def Admin(request):
-    
-    if request.method=="POST":
-        email = request.POST.get("Email")
-        password = request.POST.get("Password")
-        try:
-            Admin = firebase_admin.auth.create_user(email=email,password=password)
-        except (firebase_admin._auth_utils.EmailAlreadyExistsError,ValueError) as error:
-            return render(request,"Admin/Admin.html",{"msg":error})
-      
-        db.collection("tbl_Admin").add({"Admin_id":Admin.uid,"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")})
+    if "aid" in request.session:
+        if request.method=="POST":
+            email = request.POST.get("Email")
+            password = request.POST.get("Password")
+            try:
+                Admin = firebase_admin.auth.create_user(email=email,password=password)
+            except (firebase_admin._auth_utils.EmailAlreadyExistsError,ValueError) as error:
+                return render(request,"Admin/Admin.html",{"msg":error})
+        
+            db.collection("tbl_Admin").add({"Admin_id":Admin.uid,"Admin_Name":request.POST.get("Name"),"Admin_Email":request.POST.get("Email"),"Admin_Contact":request.POST.get("Contact")})
+            return render(request,"Guest/Login.html")
+        else:    
+            return render(request,"Admin/Admin.html")
+    else:
         return render(request,"Guest/Login.html")
-    else:    
-        return render(request,"Admin/Admin.html")
     
 def MyProfile(request):
-    Admin=db.collection("tbl_Admin").document(request.session["aid"]).get().to_dict()
-    return render(request,"Admin/MyProfile.html",{"Admin":Admin})
-
+    if "aid" in request.session:
+        Admin=db.collection("tbl_Admin").document(request.session["aid"]).get().to_dict()
+        return render(request,"Admin/MyProfile.html",{"Admin":Admin})
+    else:
+        return render(request,"Guest/Login.html")
+    
 def EditProfile(request):
     Admin=db.collection("tbl_Admin").document(request.session["aid"]).get().to_dict()
     if request.method=="POST":
@@ -124,6 +133,7 @@ def ChangePassword(request):
 
     
 def ViewRestaurant(request):
+    if "aid" in request.session:
         vr = db.collection("tbl_Restaurant").where("Restaurant_Status","==",0).stream() 
         vr_data=[]
         for i in vr:
@@ -133,7 +143,9 @@ def ViewRestaurant(request):
             return render(request,"Admin/ViewRestaurant.html",{"view":vr_data})
         else:
             return render(request,"Admin/ViewRestaurant.html")
-
+    else:
+        return render(request,"Guest/Login.html")
+    
 def Accepted(request,id):
     req=db.collection("tbl_Restaurant").document(id).update({"Restaurant_Status":1})
     # Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
@@ -162,7 +174,7 @@ def Rejected(request,id):
 
 
 def ViewComplains(request):
-    
+    if "aid" in request.session:
         restaurant_data=[]
         customer_data=[]
         waiter_data=[]
@@ -187,11 +199,19 @@ def ViewComplains(request):
             waiter_data.append({"complaint":i.to_dict(),"id":i.id,"waiter":waiter})
             
         return render(request,"Admin/ViewComplains.html",{"restaurant":restaurant_data,"customer":customer_data,"waiter":waiter_data})    
-    
+    else:
+        return render(request,"Guest/Login.html")
 
     
 def Homepage(request):
-    return render(request,"Admin/Homepage.html")
+    if "aid" in request.session:
+        return render(request,"Admin/Homepage.html")
+    else:
+        return render(request,"Guest/Login.html")
+
+def Logout(request):
+    del request.session["aid"]
+    return redirect("webguest:Login")
 
 
    

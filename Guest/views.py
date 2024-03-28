@@ -53,7 +53,7 @@ def RestaurantRegistration(request):
             st.child(path).put(image)
             rp_url=st.child(path).get_url(None)
         db.collection("tbl_Restaurant").add({"Restaurant_id":Restaurant.uid,"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url,"Restaurant_Status":0})
-        return render(request,"Guest/RestaurantRegistration.html")
+        return render(request,"Guest/Login.html")
     else:    
         return render(request,"Guest/RestaurantRegistration.html",{"district":dis_data})
 
@@ -77,7 +77,7 @@ def CustomerRegistration(request):
             st.child(path).put(image)
             cp_url=st.child(path).get_url(None)
         db.collection("tbl_Customer").add({"Customer_id":Customer.uid,"Customer_Name":request.POST.get("Name"),"Customer_Email":request.POST.get("Email"),"Customer_Contact":request.POST.get("Contact"),"Customer_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Customer_Photo":cp_url})
-        return render(request,"Guest/CustomerRegistration.html")
+        return render(request,"Guest/Login.html")
     else:    
         return render(request,"Guest/CustomerRegistration.html",{"district":dis_data})
 

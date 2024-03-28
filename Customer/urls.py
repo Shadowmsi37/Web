@@ -13,4 +13,8 @@ urlpatterns=[
         path('Payment/',views.Payment,name="Payment"),
         path('loader/',views.loader,name="loader"),
         path('paymentsuc/',views.paymentsuc,name="paymentsuc"),
+        path('Logout/',views.Logout,name="Logout"),      
+        path('rating/<str:cid>',views.rating,name="rating"),
+        path('ajaxrating',views.ajaxrating,name="ajaxrating"),
+        path('starrating/',views.starrating,name="starrating"),
 ]
