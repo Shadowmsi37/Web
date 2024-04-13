@@ -15,6 +15,7 @@ urlpatterns=[
         path('paymentsuc/',views.paymentsuc,name="paymentsuc"),
         path('Logout/',views.Logout,name="Logout"),      
         path('rating/<str:cid>',views.rating,name="rating"),
+        path('ViewBooking/',views.ViewBooking,name="ViewBooking"),
         path('ajaxrating',views.ajaxrating,name="ajaxrating"),
         path('starrating/',views.starrating,name="starrating"),
 ]
