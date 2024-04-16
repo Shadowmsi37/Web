@@ -289,7 +289,9 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">My Profile</p>
+                                <a href="{% url 'webcustomer:MyProfile' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">My Profile</p>
+                                </a>
                                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
                             </div>
                         </div>
@@ -305,12 +307,13 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Restaurant
-                                </p>
+                                <a href="{% url 'webcustomer:ViewRestaurant' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Restaurant</p>
+                                </a>
                             </div>
                         </div>
 
-                        <!-- Card 3: New Orders -->
+                        <!-- Card 3: View Booking Status -->
                         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                             <div
                                 class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
@@ -321,7 +324,10 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Booking Status</p>
+                                <a href="{% url 'webcustomer:ViewBooking' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Booking
+                                        Status</p>
+                                </a>
                             </div>
                         </div>
 
@@ -341,14 +347,11 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
                 </div>
-        </div>
+            </main>
 
-    </div>
-    </div>
-    </div>
-    </main>
-    </div>
+        </div>
     </div>
 </body>
 
