@@ -145,7 +145,21 @@ def ViewRestaurant(request):
             return render(request,"Admin/ViewRestaurant.html")
     else:
         return render(request,"Guest/Login.html")
-    
+
+def RemoveRestaurant(request):
+    if "aid" in request.session:
+        vr = db.collection("tbl_Restaurant").where("Restaurant_Status","==",1).stream() 
+        vr_data=[]
+        for i in vr:
+            data=i.to_dict()
+            Restaurant=db.collection("tbl_Restaurant").document(data["Restaurant_id"]).get().to_dict()
+            vr_data.append({"view":data,"id":i.id,"Restaurant":Restaurant})
+            return render(request,"Admin/ViewRestaurant.html",{"view":vr_data})
+        else:
+            return render(request,"Admin/RemoveRestaurant.html")
+    else:
+        return render(request,"Guest/Login.html")
+
 def Accepted(request,id):
     req=db.collection("tbl_Restaurant").document(id).update({"Restaurant_Status":1})
     # Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()

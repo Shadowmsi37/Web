@@ -116,9 +116,11 @@ def Booking(request,id):
         return render(request,"Customer/Booking.html")
     
 def ViewBooking(request):
-    return render(request,"Customer/Booking.html")
+    return render(request,"Customer/ViewBooking.html")
 
-    
+def ViewComplains(request):
+    return render(request,"Customer/ViewComplains.html")
+  
 
 def Complains(request):
     if "cid" in request.session:

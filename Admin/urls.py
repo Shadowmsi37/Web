@@ -13,6 +13,7 @@ urlpatterns=[
         path('EditProfile/',views.EditProfile,name="EditProfile"),
         path('ChangePassword/',views.ChangePassword,name="ChangePassword"),
         path('ViewRestaurant/',views.ViewRestaurant,name="ViewRestaurant"),
+        path('RemoveRestaurant/',views.RemoveRestaurant,name="RemoveRestaurant"),
         path('Accepted/<str:id>',views.Accepted,name="Accepted"),
         path('Rejected/<str:id>',views.Rejected,name="Rejected"),
         path('Homepage/',views.Homepage,name="Homepage"),

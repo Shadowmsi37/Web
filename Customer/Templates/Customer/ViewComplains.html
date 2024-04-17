@@ -73,23 +73,23 @@
                                 aria-label="submenu">
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="{% url 'webRestaurants:MyProfile' %}">My Profile</a>
+                                    <a class="w-full" href="{% url 'webcustomer:MyProfile' %}">My Profile</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="{% url 'webRestaurants:EditProfile' %}">
+                                    <a class="w-full" href="{% url 'webcustomer:EditProfile' %}">
                                         Edit Account
                                     </a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="{% url 'webRestaurants:ChangePassword' %}">
+                                    <a class="w-full" href="{% url 'webcustomer:ChangePassword' %}">
                                         Change Password
                                     </a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="{% url 'webRestaurants:Logout' %}">
+                                    <a class="w-full" href="{% url 'webcustomer:Logout' %}">
                                         Logout
                                     </a>
                                 </li>
@@ -239,7 +239,7 @@
                                     aria-label="submenu">
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="{% url 'webRestaurants:MyProfile' %}">
+                                            href="{% url 'webcustomer:MyProfile' %}">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -252,7 +252,7 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="{% url 'webRestaurants:Logout' %}">
+                                            href="{% url 'webcustomer:Logout' %}">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -289,10 +289,10 @@
                                 </svg>
                             </div>
                             <div>
-                                <a href="{% url 'webRestaurants:MyProfile' %}">
+                                <a href="{% url 'webcustomer:MyProfile' %}">
                                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">My Profile</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
                                 </a>
+                                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
                             </div>
                         </div>
 
@@ -307,13 +307,14 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Restaurant Income
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">₹25.89</p>
+                                <a href="{% url 'webcustomer:ViewRestaurant' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Restaurant
+                                    </p>
+                                </a>
                             </div>
                         </div>
 
-                        <!-- Card 3: New Orders -->
+                        <!-- Card 3: View Booking Status -->
                         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                             <div
                                 class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
@@ -323,8 +324,10 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <div><a href="{% url 'webRestaurants:ViewBooking' %}">
-                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">New Orders</p>
+                            <div>
+                                <a href="{% url 'webcustomer:ViewBooking' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Booking
+                                        Status</p>
                                 </a>
                             </div>
                         </div>
@@ -340,233 +343,17 @@
                                 </svg>
                             </div>
                             <div>
-                                <a href="{% url 'webRestaurants:ViewComplains' %}">
-                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Complaints
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Card 5: Add Waiter -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                            <div
-                                class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <a href="{% url 'webRestaurants:AddWaiter' %}">
-                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Add Waiter</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Card 6: Add Table -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                            <div
-                                class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M3 5h14a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V7a2 2 0 012-2zM5 8h2v2H5V8zm4 0h2v2H9V8zm4 0h2v2h-2V8zm-8 4h2v2H5v-2zm4 0h2v2H9v-2zm4 0h2v2h-2v-2z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-
-                            </div>
-                            <div>
-                                <a href="{% url 'webRestaurants:AddTable' %}">
-                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Add Table</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
+                                <a href="{% url 'webcustomer:ViewComplains' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Complaints</p>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <style>
-                        /* Style for the form */
-                        form {
-                            width: 50%; /* Adjust as needed */
-                            margin: 0 auto;
-                        }
-                
-                        /* Style for the table */
-                        table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-bottom: 20px;
-                        }
-                
-                        /* Style for table cells */
-                        td {
-                            padding: 10px;
-                            border: 1px solid #ddd;
-                        }
-                
-                        /* Style for input fields */
-                        input[type="number"], input[type="file"] {
-                            width: 100%;
-                            padding: 8px;
-                            box-sizing: border-box;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                        }
-                
-                        /* Style for the submit button */
-                        button[type="submit"] {
-                            background-color: #4CAF50;
-                            color: white;
-                            padding: 10px 20px;
-                            border: none;
-                            border-radius: 4px;
-                            cursor: pointer;
-                            float: right;
-                        }
-                
-                        /* Style for the submit button on hover */
-                        button[type="submit"]:hover {
-                            background-color: #45a049;
-                        }
-                    </style>
-                    <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token  %}
-                        <table>
-                            <tr>
-                                <td>Name</td>
-                                <td><input type="text" name="Name" id="" placeholder="Enter Waiter Name"></td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td><input type="email" name="Email" id="" placeholder="Enter Email"></td>
-                            </tr>
-                            <tr>
-                                <td>Password</td>
-                                <td><input type="password" name="Password" id="" placeholder="Enter Password"></td>
-                            </tr>
-                            <tr>
-                                <td>Contact</td>
-                                <td><input type="tel" name="Contact" id="" placeholder="Enter Contact No"></td>
-                            </tr>
-                            <tr>
-                                <td>Photo</td>
-                                <td><input type="file" name="Photo" id=""></td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Proof</td>
-                                <td><input type="file" name="Proof" id=""></td>
-                            </tr>
-                            <tr>
-                                <td>District</td>
-                                <td><select name="district" id="district">
-                                    <option value="">...Select...</option>
-                                    {% for i in district %}
-                                    <option value="{{i.id}}">{{i.dis.district_name}}</option>
-                                {% endfor %}</td>
-                            </tr>
-                            <tr>
-                                <td>Place</td>
-                                <td><select name="place" id="place">
-                                    <option value="">...Select...</option></select></td>
-                            </tr>
-                            <tr>
-                                <td>Address</td>
-                                <td><textarea name="Address" id="" cols="30" rows="10"></textarea></td>
-                            </tr>
-                
-                        </table>
-                        <button type="submit">Register</button>
-                    </form>
+
                 </div>
-            </div>
+            </main>
         </div>
     </div>
-    </div>
-    </div>
-    </main>
-    </div>
-    </div>
 </body>
 
 </html>
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token  %}
-        <table>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="Name" id=""></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="email" name="Email" id=""></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name="Password" id=""></td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td><input type="tel" name="Contact" id=""></td>
-            </tr>
-            <tr>
-                <td>Photo</td>
-                <td><input type="file" name="Photo" id=""></td>
-            </tr>
-            
-            <tr>
-                <td>Proof</td>
-                <td><input type="file" name="Proof" id=""></td>
-            </tr>
-            <tr>
-                <td>District</td>
-                <td><select name="district" id="district">
-                    <option value="">...Select...</option>
-                    {% for i in district %}
-                    <option value="{{i.id}}">{{i.dis.district_name}}</option>
-                {% endfor %}</td>
-            </tr>
-            <tr>
-                <td>Place</td>
-                <td><select name="place" id="place">
-                    <option value="">...Select...</option></select></td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td><textarea name="Address" id="" cols="30" rows="10"></textarea></td>
-            </tr>
-
-        </table>
-        <button type="submit">Register</button>
-    </form>
-</body>
-{% if msg %}
-<script>
-    alert("{{msg}}")
-</script>
-{% endif %}
-</html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $("#district").change(function () {
-        var did = $(this).val();
-        var ur = "{% url 'webRestaurants:AjaxPlace' %}"
-        $.ajax({
-            url: ur,
-            data: { did: did, },
-            success: function (data) {
-                $("#place").html(data);
-            },
-        });
-    });
-</script>
-</html>
-</html>-->

@@ -289,8 +289,10 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">My Profile</p>
-                                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
+                                <a href="{% url 'webRestaurants:MyProfile' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">My Profile</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
+                                </a>
                             </div>
                         </div>
 
@@ -321,9 +323,9 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">New Orders</p>
-                                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">6</p>
+                            <div><a href="{% url 'webRestaurants:ViewBooking' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">New Orders</p>
+                                </a>
                             </div>
                         </div>
 
@@ -338,9 +340,9 @@
                                 </svg>
                             </div>
                             <div>
-                                <a href="#">
-                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Complaints</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">1</p>
+                                <a href="{% url 'webRestaurants:ViewComplains' %}">
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">View Complaints
+                                    </p>
                                 </a>
                             </div>
                         </div>
@@ -356,7 +358,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <a href="#">
+                                <a href="{% url 'webRestaurants:AddWaiter' %}">
                                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Add Waiter</p>
                                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
                                 </a>
@@ -368,12 +370,14 @@
                             <div
                                 class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M3 5h14a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V7a2 2 0 012-2zM5 8h2v2H5V8zm4 0h2v2H9V8zm4 0h2v2h-2V8zm-8 4h2v2H5v-2zm4 0h2v2H9v-2zm4 0h2v2h-2v-2z" clip-rule="evenodd"></path>
+                                    <path fill-rule="evenodd"
+                                        d="M3 5h14a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V7a2 2 0 012-2zM5 8h2v2H5V8zm4 0h2v2H9V8zm4 0h2v2h-2V8zm-8 4h2v2H5v-2zm4 0h2v2H9v-2zm4 0h2v2h-2v-2z"
+                                        clip-rule="evenodd"></path>
                                 </svg>
-                                
+
                             </div>
                             <div>
-                                <a href="#">
+                                <a href="{% url 'webRestaurants:AddTable' %}">
                                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Add Table</p>
                                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
                                 </a>

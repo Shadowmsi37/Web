@@ -16,6 +16,7 @@ urlpatterns=[
         path('Logout/',views.Logout,name="Logout"),      
         path('rating/<str:cid>',views.rating,name="rating"),
         path('ViewBooking/',views.ViewBooking,name="ViewBooking"),
+        path('ViewComplains/',views.ViewComplains,name="ViewComplains"),
         path('ajaxrating',views.ajaxrating,name="ajaxrating"),
         path('starrating/',views.starrating,name="starrating"),
 ]
