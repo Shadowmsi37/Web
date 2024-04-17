@@ -32,13 +32,16 @@ def EditProfile(request):
 def ChangePassword(request):
     Customer = db.collection("tbl_Customer").document(request.session["cid"]).get().to_dict()
     email = Customer["Customer_Email"]
-    password_link = firebase_admin.auth.generate_password_reset_link(email) 
+    
+    print(email)
+    em_link = firebase_admin.auth.generate_password_reset_link(email)
     send_mail(
-    'Reset your password ', 
-    "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + password_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your user.",#body
-    settings.EMAIL_HOST_USER,
-    [email],
+            'Reset your password ', #subject
+            "\rHello \r\nFollow this link to reset your Project password for your " + email + "\n" + em_link +".\n If you didn't ask to reset your password, you can ignore this email. \r\n Thanks. \r\n Your  team.",#body
+            settings.EMAIL_HOST_USER,
+            [email],
     )
+       
     return render(request,"Customer/Homepage.html",{"msg":email})
 
 def ViewTable(request,id):
@@ -116,13 +119,26 @@ def Booking(request,id):
         return render(request,"Customer/Booking.html")
     
 def ViewBooking(request):
-    return render(request,"Customer/ViewBooking.html")
+    Booking=db.collection("tbl_Booking").where("Customer_id","==",request.session["cid"]).stream()
+    Booking_data=[]
+    for i in Booking:
+        data=i.to_dict()
+        Customer=db.collection("tbl_Customer").document(data["Customer_id"]).get().to_dict()
+        table=db.collection("tbl_Table").document(data["Table_id"]).get().to_dict()
+        Restaurant=db.collection("tbl_Restaurant").document(table["Restaurant_id"]).get().to_dict()
+        Booking_data.append({"booking":data,"id":i.id,"Customer":Customer,"table":table,"Restaurant":Restaurant})
+    return render(request,"Customer/ViewBooking.html",{"Booking":Booking_data})
 
 def ViewComplains(request):
-    return render(request,"Customer/ViewComplains.html")
+    com=db.collection("tbl_Complains").where("Customer_id","==",request.session["cid"]).stream()
+    com_data=[]
+    for i in com:
+        data=i.to_dict()
+        com_data.append({"com":data,"id":i.id})
+    return render(request,"Customer/ViewComplains.html",{"com":com_data})
   
 
-def Complains(request):
+def Complains(request,id):
     if "cid" in request.session:
         com=db.collection("tbl_Complains").stream()
         com_data=[]
@@ -130,9 +146,10 @@ def Complains(request):
             data=i.to_dict()
             com_data.append({"com":data,"id":i.id})
         if request.method=="POST":
-            data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Restaurant_id":"","waiter_id":"","Customer_id":request.session["cid"]}
+            datedata=date.today()
+            data={"Complains_Name":request.POST.get("Title"),"Complains_Content":request.POST.get("Content"),"Complains_Status":0,"Restaurant_id":id,"waiter_id":"","Customer_id":request.session["cid"],"Complaint_Date":str(datedata)}
             db.collection("tbl_Complains").add(data)
-            return redirect("webcustomer:Complains")
+            return redirect("webcustomer:ViewComplains")
         else:
             return render(request,"Restaurants/Complains.html",{"Complains":com_data})
     else:

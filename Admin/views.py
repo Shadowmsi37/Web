@@ -138,11 +138,9 @@ def ViewRestaurant(request):
         vr_data=[]
         for i in vr:
             data=i.to_dict()
-            Restaurant=db.collection("tbl_Restaurant").document(data["Restaurant_id"]).get().to_dict()
-            vr_data.append({"view":data,"id":i.id,"Restaurant":Restaurant})
-            return render(request,"Admin/ViewRestaurant.html",{"view":vr_data})
-        else:
-            return render(request,"Admin/ViewRestaurant.html")
+            vr_data.append({"view":data,"id":i.id})
+        return render(request,"Admin/ViewRestaurant.html",{"view":vr_data})
+        
     else:
         return render(request,"Guest/Login.html")
 
@@ -152,17 +150,17 @@ def RemoveRestaurant(request):
         vr_data=[]
         for i in vr:
             data=i.to_dict()
-            Restaurant=db.collection("tbl_Restaurant").document(data["Restaurant_id"]).get().to_dict()
-            vr_data.append({"view":data,"id":i.id,"Restaurant":Restaurant})
-            return render(request,"Admin/ViewRestaurant.html",{"view":vr_data})
-        else:
-            return render(request,"Admin/RemoveRestaurant.html")
+        
+            vr_data.append({"view":data,"id":i.id})
+        return render(request,"Admin/RemoveRestaurant.html",{"view":vr_data})
+        
     else:
         return render(request,"Guest/Login.html")
 
 def Accepted(request,id):
     req=db.collection("tbl_Restaurant").document(id).update({"Restaurant_Status":1})
-    # Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
+    # req=db.collection("tbl_Restaurant").document(id).get().to_dict()
+    # Restaurant = db.collection("tbl_Restaurant").document(req["Restaurant_id"]).get().to_dict()
     # email = Restaurant["Restaurant_Email"]
     # send_mail(
     # 'Reservation Status', 
@@ -170,13 +168,13 @@ def Accepted(request,id):
     # settings.EMAIL_HOST_USER,
     # [email],
     # )
-    return render(request,"Admin/ViewRestaurant.html",{"msg":email})
+    return render(request,"Admin/RemoveRestaurant.html")
     
 
 
 def Rejected(request,id):
     req=db.collection("tbl_Restaurant").document(id).update({"Restaurant_Status":2})
-    # Restaurant = db.collection("tbl_Restaurant").document(request.session["rid"]).get().to_dict()
+    # Restaurant = db.collection("tbl_Restaurant").document(req["Restaurant_id"]).get().to_dict()
     # email = Restaurant["Restaurant_Email"]
     # send_mail(
     # 'Reservation Status', 
@@ -184,7 +182,7 @@ def Rejected(request,id):
     # settings.EMAIL_HOST_USER,
     # [email],
     # )
-    return render(request,"Admin/ViewRestaurant.html",{"msg":email})
+    return render(request,"Admin/RejectedRestaurant.html")
 
 
 def ViewComplains(request):

@@ -141,4 +141,10 @@
     <p><a href="{% url 'webguest:CustomerRegistration' %}">Create Account For Customer</a></p>
   </form>
 </body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'webguest:Login' %}"
+</script>
+{% endif %}
 </html>

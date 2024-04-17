@@ -138,5 +138,5 @@ app = firebase_admin.initialize_app(cred)
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'restaurant.serve37@gmail.com'
-EMAIL_HOST_PASSWORD = 'mkcvibbizumcuzkg'
+EMAIL_HOST_USER = 'jithinmainproject@gmail.com'
+EMAIL_HOST_PASSWORD = 'qfekamrapqfdgejv'

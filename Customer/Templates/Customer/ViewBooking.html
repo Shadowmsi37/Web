@@ -407,20 +407,20 @@
                                 <th>Waiter Status</th>
                                 <th>Complaint</tr>
                             </tr>
-                            {% for i in view %}
+                            {% for i in Booking %}
                             <tr>
                                 <td>{{i.Customer.Customer_Name}}</td>
                                 <td>{{i.Customer.Customer_Email}}</td>
                                 <td>{{i.Customer.Customer_Contact}}</td>
                                 <td>{{i.Customer.Customer_Address}}</td>
-                                <td>{{i.Table.Table_No}}</td>
-                                <td><img src="{{i.Table.Table_Photo}}" alt="Table Image"></td>
-                                <td>{{i.Table.Table_Capacity}}</td>
-                                <td>{{i.view.Date}}</td>
-                                <td>{{i.view.Time}}</td>
-                                <td class="payment-status {% if i.view.payment_status == 1 %}paid{% else %}not-paid{% endif %}">
-                                    {% if i.view.payment_status == 1 %}
-                                    Payed
+                                <td>{{i.table.Table_No}}</td>
+                                <td><img src="{{i.table.Table_Photo}}" alt="Table Image"></td>
+                                <td>{{i.table.Table_Capacity}}</td>
+                                <td>{{i.booking.Date}}</td>
+                                <td>{{i.booking.Time}}</td>
+                                <td class="payment-status {% if i.booking.payment_status == 1 %}paid{% else %}not-paid{% endif %}">
+                                    {% if i.booking.payment_status == 1 %}
+                                    Payed | <a href="{% url 'webcustomer:Complains' i.id %}">Complaint</a>
                                     {% else %}
                                     Not Payed
                                     {% endif %}

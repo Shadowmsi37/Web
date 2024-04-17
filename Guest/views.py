@@ -52,7 +52,7 @@ def RestaurantRegistration(request):
             path="RestaurantPhoto/"+image.name
             st.child(path).put(image)
             rp_url=st.child(path).get_url(None)
-        db.collection("tbl_Restaurant").add({"Restaurant_id":Restaurant.uid,"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url,"Restaurant_Status":0})
+        db.collection("tbl_Restaurant").add({"Restaurant_id":Restaurant.uid,"Restaurant_Name":request.POST.get("Name"),"Restaurant_Email":request.POST.get("Email"),"Restaurant_Contact":request.POST.get("Contact"),"Restaurant_Address":request.POST.get("Address"),"place_id":request.POST.get("place"),"Restaurant_Photo":rp_url,"Restaurant_Status":0,"Restaurant_proof":request.POST.get("proof")})
         return render(request,"Guest/Login.html")
     else:    
         return render(request,"Guest/RestaurantRegistration.html",{"district":dis_data})
@@ -106,12 +106,20 @@ def Login(request):
         Restaurant = db.collection("tbl_Restaurant").where("Restaurant_id", "==",data["localId"],).stream()
         for r in Restaurant:
             Restaurantid = r.id  
+            Restaurant=r.to_dict()
+            Restaurant_Status=Restaurant["Restaurant_Status"]
         if Customerid:
             request.session["cid"] = Customerid
             return redirect("webcustomer:Homepage")  
         elif Restaurantid:
-            request.session["rid"]=Restaurantid    
-            return redirect("webRestaurants:Homepage")
+            if Restaurant_Status== 1:
+                request.session["rid"]=Restaurantid    
+                return redirect("webRestaurants:Homepage")
+            elif Restaurant_Status == 2:
+                return render(request,"Guest/Login.html",{"msg":"Your Request is Rejected"})
+            else:
+                return render(request,"Guest/Login.html",{"msg":"Your Request is Pending"})
+                
         elif Waiterid:
             request.session["wid"]=Waiterid    
             return redirect("webwaiter:Homepage")

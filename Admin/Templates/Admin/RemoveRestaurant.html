@@ -562,22 +562,21 @@
                                 <th>Restaurant Name</th>
                                 <th>Contact</th>
                                 <th>Email</th>
-                                <th>District</th>
-                                <th>Place</th>
+                                <th>Location</th>
                                 <th>Address</th>
                                 <th>Action</th>
                                 <th>Action</th>
                             </tr>
-                            {% for i in Restaurant %}
+                            {% for i in view %}
                             <tr>
-                                <td>{{ i.view.Restaurant_Name }}</td>
-                                <td>{{ i.view.Contact }}</td>
-                                <td>{{ i.view.Email }}</td>
-                                <td>{{ i.view.District }}</td>
-                                <td>{{ i.view.Place }}</td>
-                                <td>{{ i.view.Address }}</td>
-                                <td>Action</td>
-                                <td>Action</td>
+                                <td>{{i.view.Restaurant_Name}}</td>
+                                <td>{{i.view.Restaurant_Contact}}</td>
+                                <td>{{i.view.Restaurant_Email}}</td>
+                                <td><a href="{{i.view.Restaurant_proof}}">Show Location</a></td>
+                                
+                                <td>{{i.view.Restaurant_Address}}</td>
+                                
+                                <td><a href="{% url 'webadmin:Rejected' i.id %}"><span style="color:red">Rejected</span></a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -597,45 +596,3 @@
 </body>
 
 </html>
-<!--<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Restaurant Name</td>
-                <td>Email</td>
-                <td>Contact</td>
-                <td>Restaurant Photo</td>
-                <td>District</td>
-                <td>Place</td>
-                <td>Address</td>
-                <td>Action</td>
-                <td>Action</td>
-            </tr>
-            {% for i in view %}
-            <tr>
-                <td>{{i.view.Restaurant_Name}}</td>
-                <td>{{i.view.Restaurant_Email}}</td>
-                <td>{{i.view.Restaurant_Contact}}</td>
-                <td><img src="{{i.view.Restaurant_Photo}}" width="100" height="100"></td>
-                <td>{{i.view.Restaurant_District}}</td>
-                <td>{{i.view.Restaurant_Place}}</td>
-                <td>{{i.view.Restaurant_Address}}</td>
-                <td><a href="{% url 'webadmin:Accepted' i.id %}">Accepted</a></td>
-                <td><a href="{% url 'webadmin:Rejected' i.id %}">Rejected</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </form>
-</body>
-
-</html>-->
